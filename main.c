@@ -14,6 +14,8 @@ int main()
     return 0; 
 }
 
+//hello world
+
 // the following function will define how the word is encrypted using a rotation cipher
 char encrypt(char *word) {
     char i; // a counter to only encrypt the number of letters within the string word[]
