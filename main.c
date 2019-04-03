@@ -79,7 +79,7 @@ char Rencrypt(char *word) {
     int k = 0; // this is the 'key', being the number of 'shifts' the letter will move - this will rotate k letters 
     int n = 0; // this is an integer for the number of letters in the word - used to kill the loop when the word is dont being encrypted
     
-        printf("Insert amount of letters in word:");
+        printf("Insert number of characters (including punctuation)in word:");
         scanf("%d", &n);
         printf("Insert key for rotation:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
         scanf("%d", &k);
@@ -89,11 +89,14 @@ char Rencrypt(char *word) {
      If the ACSII characters go beyond Z with this rotation, they are rotated back to A etc as per how rotation ciphers work*/
      
        while (i<n) {
-           /* if (word[i]==32) {
-                printf("%c", 32);
-                i++; 
-            }*/
-           if ((word[i] + k )<91 && word[i] >32) {
+        
+        /* the first if statement in this while loop defines that if a character
+        of punctuation is entered, i.e. an apostrophe, than it will be printed unchanged*/
+           if(word[i] < 64){
+               printf("%c", word[i]);
+               i++; 
+           }
+           else if ((word[i] + k) < 91 && (word[i]) >64) {
                 word[i] = (word[i] + k);  
                 printf("%c", word[i]);
               i++;
@@ -132,12 +135,14 @@ However, this time the key number will be removed from the current letters in or
 which position they were moved from, and therefore print the original word*/
        
        while (i<n) {
-           /* if (word[i]==32) {
-                printf("%c", 32);
-                i++; 
-            }*/
-
-            if ((word[i] - k )>= 65) {
+           
+            /* the first if statement in this while loop defines that if a character
+        of punctuation is entered, i.e. an apostrophe, than it will be printed unchanged*/
+           if(word[i] < 64){
+               printf("%c", word[i]);
+               i++; 
+           }
+            else if ((word[i] - k )>= 65) {
                 word[i] = (word[i] - k);  
                 printf("%c", word[i]);
               i++;
