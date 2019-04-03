@@ -10,7 +10,8 @@ the method of a substitution cipher rather than a rotational cipher.
 The use is prompted to input all information needeed for the program to work. 
 Words can only be a single word or the program will exit, as when the string reads empty space (i.e. a space) it
 recognises it as the end of the string and exits.  
-Words must be in capital letters, as the program is designed to fit within the boundaries of the ACSII codes of capital letters. 
+This code has been optimised in order to allow the input of capital and lower case letters, however 
+it has not yet been optimised for the use of spaces or punctuation.  
 Program must be run from the terminal section */
 
 char Rencrypt(char *word); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
@@ -21,7 +22,8 @@ int main()
     int function = 0; /* f will acts as the integer which chooses out of the multiple functions of this code -
     i.e., 1 will be rotational cipher encryption, 2 will be rotational cipher decryption, 
     3 will be sucstitution cipher encryption and 4 will be rotational cipher decryption*/
-  
+    int i=0;
+    
   /* the below 5 lines act as the 'user-friendly' manuel in which the user can insert a number
   from 1-4 to determine which function within the program they would like to use*/
  
@@ -35,18 +37,32 @@ int main()
         switch (function) {
             case 1:
             printf("You chose to encrypt a word using a rotational cipher! \n");
-            printf("Insert word to be encrypted (use capital letters):"); // prompts the user to input word
+            printf("Insert word to be encrypted:"); // prompts the user to input word
             scanf("%s", word); /*scans the word wished to be encrypted and puts it in the string */ 
-            
+          
+          /* this while loop works to convert any lower case letters input
+          into capitals before the word enters the function*/
+           while(word[i] > 96) {
+                word[i] = (word[i] - 32);
+             i++;
+           }
+
                 Rencrypt(word); /* the line of code indicating the string 'word' will be used 
                 in the encrypt function. */
+               
             break;
             
             case 2:
             printf("You chose to decrypt a word using a rotational cipher! \n");
-            printf("Insert encrypted word to be decrypted (use capital letters): ");
+            printf("Insert encrypted word to be decrypted: ");
             scanf("%s", word);
             
+            /* this while loop works to convert any lower case letters input
+          into capitals before the word enters the function*/
+           while(word[i] > 96) {
+                word[i] = (word[i] - 32);
+             i++;
+           }
                 Rdecrypt(word); /* this line of code indicates the string word inputted will be used in the 
                 decryption function, as per the users choice*/
             break; 
@@ -77,18 +93,23 @@ char Rencrypt(char *word) {
                 printf("%c", 32);
                 i++; 
             }*/
-
-            if ((word[i] + k )<91 && word[i] >32) {
+           if ((word[i] + k )<91 && word[i] >32) {
                 word[i] = (word[i] + k);  
                 printf("%c", word[i]);
               i++;
-        }
-
+            }
+            
             else if ((word[i] + k)>90) {
-                word[i] = ((word[i] + k) -26);
+                word[i] = ((word[i] -26) + k);
                 printf("%c", word[i]);
                 i++;
             }
+            
+/*            else if (word[i] >= 96) {
+                word[i] = ((word[i] - 32) + k);
+                printf("%c", word[i]);
+                i++; 
+            }*/
         }
          printf("\n");
      
