@@ -7,11 +7,11 @@ Words can only be a single word or the program will exit.
 Words must be in capital letters
 Program must be run from the terminal section */
 
-char Rencrypt(char *word); // this is the prototype for the function that will handle encrypting the word using a rotational cipher 
-char Rdecrypt(char *word); // this is the prototype for the function that will handle decrypting a rotational cipher
+char Rencrypt(char *word); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
+char Rdecrypt(char *word); /* this is the prototype for the function that will handle decrypting a rotational cipher*/
 int main() 
 {
-    char word [100]; //initialises string with a number of letters most words won't exceed.  
+    char word [100]; /*initialises string with a number of letters most words won't exceed */  
     int function = 0; /* f will acts as the integer which chooses out of the multiple functions of this code -
     i.e., 1 will be rotational cipher encryption, 2 will be rotational cipher decryption, 
     3 will be sucstitution cipher encryption and 4 will be rotational cipher decryption*/
@@ -30,15 +30,20 @@ int main()
             case 1:
             printf("You chose to encrypt a word using a rotational cipher! \n");
             printf("Insert word to be encrypted (use capital letters):"); // prompts the user to input word
-            scanf("%s", word); //scans the word wished to be encrypted and puts it in the string. 
+            scanf("%s", word); /*scans the word wished to be encrypted and puts it in the string */ 
             
-                Rencrypt(word); // the line of code indicating the string 'word' will be used in the encrypt function. 
+                Rencrypt(word); /* the line of code indicating the string 'word' will be used 
+                in the encrypt function. */
     
-        }
             case 2:
             printf("You chose to decrypt a word using a rotational cipher! \n");
             printf("Insert encrypted word to be decrypted (use capital letters): ");
             scanf("%s", word);
+            
+                Rdecrypt(word); /* this line of code indicates the string word inputted will be used in the 
+                decryption function, as per the users choice*/
+         }   
+
             
     return 0; 
 }
@@ -60,8 +65,8 @@ char Rencrypt(char *word) {
      If the ACSII characters go beyond Z with this rotation, they are rotated back to A etc as per how rotation ciphers work*/
      
        while (i<n) {
-         /*   if (word[i]==32) {
-                printf("%c", word[i]);
+           /* if (word[i]==32) {
+                printf("%c", 32);
                 i++; 
             }*/
 
@@ -76,12 +81,46 @@ char Rencrypt(char *word) {
                 printf("%c", word[i]);
                 i++;
             }
-
         }
-    
          printf("\n");
      
-        
     return 0;
 }
 
+char Rdecrypt(char *word){
+    char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
+    int k = 0;  /* this is again acting as the key given which will be used to decrypt the given encryption */
+    int n = 0;  /* this variable will again be used as the number of letters in the encryption
+    and will be used as flow control to finish the function at the end of the word*/
+   
+        printf("Insert amount of characters in encryption: ");
+        scanf("%d", &n);
+        printf("Insert given key for number of rotations: ");
+        scanf("%d", &k); 
+
+/* The below code is very similar to the code used for encryption with a rotational cipher. 
+However, this time the key number will be removed from the current letters in order to see from 
+which position they were moved from, and therefore print the original word*/
+       
+       while (i<n) {
+           /* if (word[i]==32) {
+                printf("%c", 32);
+                i++; 
+            }*/
+
+            if ((word[i] - k )> 65) {
+                word[i] = (word[i] - k);  
+                printf("%c", word[i]);
+              i++;
+            }
+
+            else if ((word[i] - k)<65) {
+                word[i] = ((word[i] - k) +26);
+                printf("%c", word[i]);
+                i++;
+            }
+        }
+         printf("\n");
+     
+    return 0; 
+}
