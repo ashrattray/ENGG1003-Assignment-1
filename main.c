@@ -1,10 +1,16 @@
 #include<stdio.h>
 #include<string.h>
 
-/* the following code reads a word from the user, and then reads a key for the rotational cipher before 
+/* the following code has multiple functions. The first function reads a word from the user, and then reads a key for the rotational cipher before 
 encrypting the given word with the key and printing the result to the screen.
-Words can only be a single word or the program will exit. 
-Words must be in capital letters
+The second function decrypts an encrypted word in a similar way, with the encrypted word 
+and the key (number of rotations) needs to be known in order to decrypt it. It also prints the original 
+word to the screen. The third and fourth functions work the same way respictevely, however uses 
+the method of a substitution cipher rather than a rotational cipher. 
+The use is prompted to input all information needeed for the program to work. 
+Words can only be a single word or the program will exit, as when the string reads empty space (i.e. a space) it
+recognises it as the end of the string and exits.  
+Words must be in capital letters, as the program is designed to fit within the boundaries of the ACSII codes of capital letters. 
 Program must be run from the terminal section */
 
 char Rencrypt(char *word); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
@@ -34,7 +40,8 @@ int main()
             
                 Rencrypt(word); /* the line of code indicating the string 'word' will be used 
                 in the encrypt function. */
-    
+            break;
+            
             case 2:
             printf("You chose to decrypt a word using a rotational cipher! \n");
             printf("Insert encrypted word to be decrypted (use capital letters): ");
@@ -42,6 +49,7 @@ int main()
             
                 Rdecrypt(word); /* this line of code indicates the string word inputted will be used in the 
                 decryption function, as per the users choice*/
+            break; 
          }   
 
             
@@ -108,13 +116,13 @@ which position they were moved from, and therefore print the original word*/
                 i++; 
             }*/
 
-            if ((word[i] - k )> 65) {
+            if ((word[i] - k )>= 65) {
                 word[i] = (word[i] - k);  
                 printf("%c", word[i]);
               i++;
             }
 
-            else if ((word[i] - k)<65) {
+            else if ((word[i] - k)<66) {
                 word[i] = ((word[i] - k) +26);
                 printf("%c", word[i]);
                 i++;
