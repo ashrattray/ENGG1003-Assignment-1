@@ -9,14 +9,16 @@ word to the screen. The third and fourth functions work the same way respictevel
 the method of a substitution cipher rather than a rotational cipher. 
 The use is prompted to input all information needeed for the program to work. 
 Words can only be a single word or the program will exit, as when the string reads empty space (i.e. a space) it
-recognises it as the end of the string and exits.  
+recognises it as the end of the string and exits. Therefore, if a sentence is to be decrypted, each word must be input into the program
+separately (one at a time).   
 This code has been optimised in order to allow the input of capital and lower case letters, and allows the input of common
 punctuation such as apostrophes, as well as numbers; however spaces still cause the program to 
 quit and should be avoided.  
 Program must be run from the terminal section */
 
 char Rencrypt(char *word); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
-char Rdecrypt(char *word); /* this is the prototype for the function that will handle decrypting a rotational cipher*/
+char Rkdecrypt(char *word); /* this is the prototype for the function that will handle decrypting a rotational cipher when given the rotation key*/
+char Rdecrypt(char *word); /* this is the prototype for the fucntion that will handle decrypting a rotation cipher word without the rotation key*/
 int main() 
 {
     char word [100]; /*initialises string with a number of letters most words won't exceed */  
@@ -30,7 +32,8 @@ int main()
  
         printf("Choose function you wish to use: \n");
         printf("Insert 1 to encrypt using a rotational cipher \n");
-        printf("Insert 2 to decrypt using a rotational cipher \n");
+        printf("Insert 2 to decrypt using a rotational cipher, given the key \n");
+        printf("Insert 3 to decrypt using a rotational cipher, not given the key \n");
       /*  printf("Insert 3 to encrypt using a substitution cipher, \n");
         printf("Insert 4 to decrypt using a substitution cipher: "); */
         scanf("%d", &function);
@@ -54,7 +57,7 @@ int main()
             run through ALL cases. This applies to other breaks found within this switch*/
             
             case 2:
-            printf("You chose to decrypt a word using a rotational cipher! \n");
+            printf("You chose to decrypt a word using a rotational cipher (given the key)! \n");
             printf("Insert encrypted word to be decrypted: "); /*this line prompts the user to input the 
             encrypted word they wish to decrypt*/
             scanf("%s", word); /* this scanf places the input word within the string that is to be 
@@ -65,12 +68,24 @@ int main()
                 word[i] = (word[i] - 32);
              i++;
            }
-                Rdecrypt(word); /* this line of code indicates the string word inputted will be used in the 
+                Rkdecrypt(word); /* this line of code indicates the string word inputted will be used in the 
                 decryption function, as per the users choice*/
             break; 
          }   
-
+            case 3: 
+            printf("You chose to decrypt a word using a rotational cipher (without the key)!");
+            printf("Insert word to be decrypted: "); /*this line prompts the user to input the cipher word*/
+            scanf("%s", word); /* this scanf puts the word inserted by the user into the string 'word' to be used 
+            in the decryption function */
             
+ /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
+           while(word[i] > 96) {
+                word[i] = (word[i] - 32);
+             i++;
+           }  
+                Rdecrypt(word); /* This line of code indicates the string word inputted will be used in the decryption
+                function*/
+                
     return 0; 
 }
 
@@ -123,7 +138,7 @@ the correct ciphering method and key*/
 /* The following function defines how a given cipher word encrypted via. rotational cipher can be 
 decrypted if given the key */
 
-char Rdecrypt(char *word){
+char Rkdecrypt(char *word){
     char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
     int k = 0;  /* this is again acting as the key given which will be used to decrypt the given encryption */
     int n = 0;  /* this variable will again be used as the number of letters in the encryption
@@ -164,6 +179,67 @@ it will rotate the ACSII code back to that associated with Z in order for the or
                 word[i] = ((word[i] - k) +26);
                 printf("%c", word[i]);
                 i++;
+            }
+        }
+         printf("\n");
+     
+    return 0; 
+}
+/* The following function body will define how the program will atempt to decipher a rotation cipher word when 
+not given the rotation key. It will cycle through rotation ciphers until the user tells it to stop i.e. when
+the program prints out an intelligable word. */
+
+char Rdecrypt(char *word){
+    char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
+    int k = 1;  /* this is again acting as the key given which will be used to decrypt the given encryption */
+    int n = 0;  /* this variable will again be used as the number of letters in the encryption
+    and will be used as flow control to finish the function at the end of the word*/
+    int r = 0; /* This variable will be used to determine whether the user wishes to encrypt again with the new key or to exit 
+    the program if given the right word*/
+   
+        printf("Insert amount of characters in encryption: "); /* this again allows the user to tell how many letters are to be 
+        encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
+        characters within the string*/
+        scanf("%d", &n); 
+
+/* The below code is very similar to the code used for encryption with a rotational cipher. 
+However, this time the key number will be removed from the current letters in order to see from 
+which position they were moved from, and therefore print the original word*/
+       
+       while (k<27) {
+           
+/* the first if statement in this while loop defines that if a character
+of punctuation is entered, i.e. an apostrophe, than it will be printed unchanged*/
+           if(i<n && word[i] < 64){
+               printf("%c", word[i]);
+               i++; 
+           }
+/* this else if statement defines that the ASCII code of each letter is taken and has the inputted
+key minused from it in order to achieve the initial ACSII code (before encryption) and 
+printing the corresponding initial letter to the screem*/
+            else if (i<n && (word[i] - k )>= 65) {
+                word[i] = (word[i] - k);  
+                printf("%c", word[i]);
+              i++;
+            }
+/* this final else if statement defines that if the ACSII code goes below those associated to capital letters (being A), 
+it will rotate the ACSII code back to that associated with Z in order for the original letter to still be found. The plus 
+26 within thise statement accounts for this and keeps the ACSII code within the order and bounds of the alphabet*/
+            else if (i<n && (word[i] - k)<66) {
+                word[i] = ((word[i] - k) +26);
+                printf("%c", word[i]);
+                i++;
+            }
+            else if(i=n) {
+                printf("Insert 1 to decrypt again and 2 to exit: ");
+                scanf("%d", &r);
+                 switch(r){
+                     case 1:
+                     k++;
+                     i=0;
+                     case 2:
+                     break;
+                 }
             }
         }
          printf("\n");
