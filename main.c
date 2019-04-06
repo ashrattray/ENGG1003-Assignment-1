@@ -19,9 +19,9 @@ punctuation such as apostrophes, as well as numbers; however spaces still cause 
 quit and should be avoided.  
 Program must be run from the terminal section */
 
-char Rencrypt(char *word); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
-char Rkdecrypt(char *word); /* this is the prototype for the function that will handle decrypting a rotational cipher when given the rotation key*/
-char Rdecrypt(char *word); /* this is the prototype for the fucntion that will handle decrypting a rotation cipher word without the rotation key*/
+char Rencrypt(char *word, int n); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
+char Rkdecrypt(char *word, int n); /* this is the prototype for the function that will handle decrypting a rotational cipher when given the rotation key*/
+char Rdecrypt(char *word, int n); /* this is the prototype for the fucntion that will handle decrypting a rotation cipher word without the rotation key*/
 
 int main() 
 {
@@ -30,9 +30,11 @@ int main()
     i.e., 1 will be rotational cipher encryption, 2 will be rotational cipher decryption, 
     3 will be sucstitution cipher encryption and 4 will be rotational cipher decryption*/
     int i=0;
+    int n=0; /* this is an integer for the number of letters in the word - 
+                used to kill the loop when the word is done being encrypted */
     
     /* the below 5 lines act as the 'user-friendly' manuel in which the user can insert a number
-    from 1-4 to determine which function within the program they would like to use*/
+    from 1-5 to determine which function within the program they would like to use*/
  
         printf("Choose function you wish to use: \n");
         printf("Insert 1 to encrypt using a rotational cipher \n");
@@ -51,22 +53,32 @@ int main()
     and then input this all capital lettered word into the 'Rencrypt' function (definition found at bottom of code)
     which will define how this word will be encrypted */
             case 1:
-            printf("You chose to encrypt a word using a rotational cipher! \n");
-            printf("Insert word to be encrypted:"); // prompts the user to input word
-            scanf("%s", word); /*scans the word wished to be encrypted and puts it in the string */ 
-          
+                printf("You chose to encrypt a word using a rotational cipher! \n");
+                printf("Insert word to be encrypted:"); // prompts the user to input word
+                scanf("%s", word); /*scans the word wished to be encrypted and puts it in the string */ 
+                printf("Insert number of characters (including punctuation) in word: "); /* this again allows the user to tell how many letters are to be 
+                        encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
+                        characters within the string*/
+                scanf("%d", &n);
+            
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
-           while(word[i] > 96) { /* this line effectively says "If the ACSII code of the letter lies within the values
+                while(i<n) {
+                    if (word[i] > 96) { /* this line effectively says "If the ACSII code of the letter lies within the values
                                     of lower case letters (i.e. ACSII numbers above 96), then the difference between a capital 
                                     letter and its respective lower case letter (being 32) must be subtracted from the lower case 
                                     ACSII number in order to convert the lower case letter to its respective captial. This definiton 
                                     of this while loops applies to all while loops within this code commented to also be converting
                                     lower case letters to uppercase letters (as the loops are the same with the same outcome*/
-                word[i] = (word[i] - 32);
-             printf("%c", word[i]);
-             i++;
-           }
-                Rencrypt(word); /* the line of code indicating the string 'word' will be used 
+                        word[i] = (word[i] - 32);
+                        i++;
+                    }
+                    else {
+                        word[i] = word[i];
+                        i++;
+                    }
+                }
+               
+               Rencrypt(word, n); /* the line of code indicating the string 'word' will be used 
                 in the encrypt function. */
                
             break; /* the breaks within this switch case are used so that only one
@@ -78,18 +90,30 @@ int main()
     be deciphered - which is then converted to all capital letters again - before putting this all capitals word into the 
     Rkdecrypt function which defines how this input word will be decrypted*/          
             case 2:
-            printf("You chose to decrypt a word using a rotational cipher (given the key)! \n");
-            printf("Insert encrypted word to be decrypted: "); /*this line prompts the user to input the 
-            encrypted word they wish to decrypt*/
-            scanf("%s", word); /* this scanf places the input word within the string that is to be 
-            used in the function, therefore meaning it is the word that will be decrypted*/
+                printf("You chose to decrypt a word using a rotational cipher (given the key)! \n");
+                printf("Insert encrypted word to be decrypted: "); /*this line prompts the user to input the 
+                encrypted word they wish to decrypt*/
+                scanf("%s", word); /* this scanf places the input word within the string that is to be 
+                used in the function, therefore meaning it is the word that will be decrypted*/
+                printf("Insert number of characters (including punctuation) in encryption: "); /* this allows the user to tell how many letters are to be 
+                            encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
+                            characters within the string*/
+                scanf("%d", &n);
             
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
-           while(word[i] > 96) {
-                word[i] = (word[i] - 32);
-             i++;
-           }
-                Rkdecrypt(word); /* this line of code indicates the string word inputted will be used in the 
+                while(i<n) {
+                    if (word[i] > 96) { 
+                        word[i] = (word[i] - 32);
+                        printf("%c", word[i]);
+                        i++;
+                    }
+                    else {
+                        word[i] = word[i];
+                        i++;
+                    }
+                }
+                
+                Rkdecrypt(word, n); /* this line of code indicates the string word inputted will be used in the 
                 decryption function, as per the users choice*/
             break; 
             
@@ -98,17 +122,29 @@ int main()
     again prompt the user for the encrypted word to be input, will convert it to capitals and then will put this word 
     into the Rdecrypt function, which defines how it will be decrypted without the needed key*/
             case 3: 
-            printf("You chose to decrypt a word using a rotational cipher (without the key)! \n");
-            printf("Insert word to be decrypted: "); /*this line prompts the user to input the cipher word*/
-            scanf("%s", word); /* this scanf puts the word inserted by the user into the string 'word' to be used 
-            in the decryption function */
+                printf("You chose to decrypt a word using a rotational cipher (without the key)! \n");
+                printf("Insert word to be decrypted: "); /*this line prompts the user to input the cipher word*/
+                scanf("%s", word); /* this scanf puts the word inserted by the user into the string 'word' to be used 
+                in the decryption function */
+                printf("Insert number of characters (including punctuation) in encryption: ");/* this allows the user to tell how many letters are to be 
+                        encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
+                        characters within the string*/
+                scanf("%d", &n);
             
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
-           while(word[i] > 96) {
-                word[i] = (word[i] - 32);
-             i++;
-           }  
-                Rdecrypt(word); /* This line of code indicates the string word inputted will be used in the decryption
+                while(i<n) {
+                    if (word[i] > 96) { 
+                        word[i] = (word[i] - 32);
+                        printf("%c", word[i]);
+                        i++;
+                    }
+                    else {
+                        word[i] = word[i];
+                        i++;
+                    }
+                } 
+                
+                Rdecrypt(word, n); /* This line of code indicates the string word inputted will be used in the decryption
                 function*/
             break;
         }
@@ -117,14 +153,10 @@ int main()
 }
 
 /* the following function will define how the word is encrypted using a rotation cipher*/
-char Rencrypt(char *word) {
+char Rencrypt(char *word, int n) {
     char i = 0; // a counter to consecutively encrypt the letters within the inserted word 
     int k = 0; // this is the 'key', being the number of 'shifts' the letter will move - this will rotate k letters 
-    int n = 0; // this is an integer for the number of letters in the word - used to kill the loop when the word is dont being encrypted
-    
-        printf("Insert number of characters (including punctuation)in word:"); /* this prompts the user to input the amount of loops needed in order 
-        to kill the loop when the word is finished being encrypted*/
-        scanf("%d", &n);
+
         printf("Insert key for rotation:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
         scanf("%d", &k);
         
@@ -165,16 +197,10 @@ char Rencrypt(char *word) {
 
 /* The following function defines how a given cipher word encrypted via. rotational cipher can be 
 decrypted if given the key */
-char Rkdecrypt(char *word){
+char Rkdecrypt(char *word, int n){
     char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
     int k = 0;  /* this is again acting as the key given which will be used to decrypt the given encryption */
-    int n = 0;  /* this variable will again be used as the number of letters in the encryption
-    and will be used as flow control to finish the function at the end of the word*/
-   
-        printf("Insert amount of characters in encryption: "); /* this again allows the user to tell how many letters are to be 
-        encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
-        characters within the string*/
-        scanf("%d", &n);
+  
         printf("Insert given key for number of rotations: "); /*given the key for the number of rotations initially used to encrypt 
         the word allows the decrypt program to move the same key of rotations backwards to achieve the initial letters*/
         scanf("%d", &k); 
@@ -216,19 +242,12 @@ char Rkdecrypt(char *word){
 /* The following function defines how the program will decrypt a given encrypted word when not given the key for the number of rotations. 
 This is done by initialising the key value k to one, and increasing this at the end of every loops until the user indicates that the decryption 
 is correct with a particular key value*/
-char Rdecrypt(char *word){
+char Rdecrypt(char *word, int n){
     char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
     int k = 1;  /* this is again acting as the key given which will be used to decrypt the given encryption, initialised to one so that each consecutive 
                 key value in the decryption loop can be tested*/
-    int n = 0;  /* this variable will again be used as the number of letters in the encryption
-    and will be used as flow control to finish the function at the end of the word*/
     int r = 0; /* This variable will be used to determine whether the user wishes to decrypt again with the new key or to exit 
     the program if given the right word*/
-   
-        printf("Insert amount of characters in encryption: "); /* this again allows the user to tell how many letters are to be 
-        encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
-        characters within the string*/
-        scanf("%d", &n); 
 
     /* The below code is very similar to the code used for encryption with a rotational cipher. 
     However, this time the key number will be removed from the current letters in order to see from 
@@ -272,31 +291,45 @@ char Rdecrypt(char *word){
     value of the "key" (k) to be used in the initial decryption loop. This can be done as many times as needed to find the 
     correct word and key. If the user inputs the value "2", meaning the deciphered word found by the program is correct.
     it will indicate to the program that it needs to run the switch case 2 statement, which tells it tp exit*/    
-                 switch(r){
+                
+             switch(r){
+                 
     /* The case 1 within the switch statement takes the inputed value of r inputed as 1 and indicates to the program
     that the decryption needs to be repeated, and handles the process needed for the next encryption to occur. */
-                     case 1:
-                     i=0; /* This line resets the counter value of i to zero in order to return the initial
+                  
+                  case 1:
+                        i=0; /* This line resets the counter value of i to zero in order to return the initial
                             input word needed to be decrypted. The following while loop handles this */
 
     /* This while statement sets the first decrypted word back to the original cipher word in order to test     
     the original input with the decryption using the nect consecutive key value when the user inserts "1" 
     to indicate the previous decryption word was incorrect*/
-                      while (i<n) { 
-                         word[i] = word[i] + k;
-                         i++;
-                      }
-                     i=0; /* This setting of i to zero again resets the counter of each letter in the word to zero in order 
-                     for the initial while loop for this decryption starting around line 212 to again be able to decrypt each letter of the 
-                     word with the new value of k defined in the following line */
-                     k++; /* This increases the value of the key "k" to the next consecutive number to test the next 
-                            consecutive key*/ 
-                     printf(" Key = %d \n", k); /*This line prints the key used to decipher the text */
-                     break;
+                            while (i<n) { 
+    /* the first if statement in this while loop defines that if a character of punctuation is entered, 
+    i.e. an apostrophe, than it will remain unchanged*/
+                                if(word[i] < 64){
+                                    i++; 
+                                }
+                                
+                                else {
+                                    word[i] = word[i] + k;
+                                    i++;
+                                }
+                            }
+                        i=0; /* This setting of i to zero again resets the counter of each letter in the word to zero in order 
+                                for the initial while loop for this decryption starting around line 212 to again be able to decrypt each letter of the 
+                                word with the new value of k defined in the following line */
+                        k++; /* This increases the value of the key "k" to the next consecutive number to test the next 
+                                consecutive key*/ 
+                        printf(" Key = %d \n", k); /*This line prints the key used to decipher the text */
+                    break;
+                    
     /* Case 2 within the switch statement indicates to the program that when the user inputs "2" into r, that it has deciphered
     the correct word and tells it to exit. This ends the program and decryption process*/                     
-                     case 2:
-                     return 0;
+                    
+                    case 2:
+                    
+                        return 0;
                  }
             }
         }
