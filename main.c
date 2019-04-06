@@ -282,7 +282,9 @@ char Rdecrypt(char *word, int n){
     the case 1 switch statement, which will reset the word and attempt to decipher with the next consecitive key 
     value. This can be repeated as many times as needed in order to find the correct key to decipher the correct word*/
             else if(i=n) {
-                printf("\n Insert 1 to decrypt again and 2 to exit: ");
+                printf("\n");
+                printf("Key = %d \n", k); /*This line prints the key used to decipher the text */
+                printf("Insert 1 to decrypt again and 2 to exit: ");
                 scanf("%d", &r);
                  
     /* The following swtich statement takes the user's inputed value of r and determines which step the program needs to 
@@ -300,11 +302,12 @@ char Rdecrypt(char *word, int n){
                   case 1:
                         i=0; /* This line resets the counter value of i to zero in order to return the initial
                             input word needed to be decrypted. The following while loop handles this */
-
+                        
     /* This while statement sets the first decrypted word back to the original cipher word in order to test     
     the original input with the decryption using the nect consecutive key value when the user inserts "1" 
     to indicate the previous decryption word was incorrect*/
-                            while (i<n) { 
+                            while (i<n) {
+                                         
     /* the first if statement in this while loop defines that if a character of punctuation is entered, 
     i.e. an apostrophe, than it will remain unchanged*/
                                 if(word[i] < 64){
@@ -321,7 +324,6 @@ char Rdecrypt(char *word, int n){
                                 word with the new value of k defined in the following line */
                         k++; /* This increases the value of the key "k" to the next consecutive number to test the next 
                                 consecutive key*/ 
-                        printf(" Key = %d \n", k); /*This line prints the key used to decipher the text */
                     break;
                     
     /* Case 2 within the switch statement indicates to the program that when the user inputs "2" into r, that it has deciphered
