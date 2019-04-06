@@ -284,7 +284,7 @@ char Rdecrypt(char *word, int n){
             else if(i=n) {
                 printf("\n");
                 printf("Key = %d \n", k); /*This line prints the key used to decipher the text */
-                printf("Insert 1 to decrypt again and 2 to exit: ");
+                printf("\nInsert 1 to decrypt again and 2 to exit: ");
                 scanf("%d", &r);
                  
     /* The following swtich statement takes the user's inputed value of r and determines which step the program needs to 
