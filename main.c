@@ -10,7 +10,7 @@ The third function defines how an rotational cipher encrypted word can be decryp
 known. It tests consecutive values of the key k until the user inputs to the program that the deciphered word is correct. 
 The fourth and third functions work the same way to encrypt and decrypt respectively, however uses 
 the method of a substitution cipher rather than a rotational cipher. 
-The use is prompted to input all information needeed for the program to work. 
+The user is prompted to input all information needeed for the program to work. 
 Words can only be a single word or the program will exit, as when the string reads empty space (i.e. a space) it
 recognises it as the end of the string and exits. Therefore, if a sentence is to be decrypted, each word must be input into the program
 separately (one at a time).   
@@ -25,7 +25,7 @@ char Rdecrypt(char *word, int n); /* this is the prototype for the fucntion that
 
 int main() 
 {
-    char word [100]; /*initialises string with a number of letters most words won't exceed */  
+    char word [1000]; /*initialises string with a number of letters most words won't exceed */  
     int function = 0; /* f will acts as the integer which chooses out of the multiple functions of this code -
     i.e., 1 will be rotational cipher encryption, 2 will be rotational cipher decryption, 
     3 will be sucstitution cipher encryption and 4 will be rotational cipher decryption*/
@@ -281,7 +281,7 @@ char Rdecrypt(char *word, int n){
     to ask them whether the correct word has been deciphered. If it has not, the user inputs "1" to activate 
     the case 1 switch statement, which will reset the word and attempt to decipher with the next consecitive key 
     value. This can be repeated as many times as needed in order to find the correct key to decipher the correct word*/
-            else if(i=n) {
+            else if(i==n) {
                 printf("\n");
                 printf("Key = %d \n", k); /*This line prints the key used to decipher the text */
                 printf("\nInsert 1 to decrypt again and 2 to exit: ");
