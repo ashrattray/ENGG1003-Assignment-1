@@ -6,7 +6,7 @@ This is done by initialising the key value k to one, and increasing this at the 
 is correct with a particular key value*/
 
 char Rdecrypt(char *word, int n){
-    char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
+    unsigned char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
     int k = 1;  /* this is again acting as the key given which will be used to decrypt the given encryption, initialised to one so that each consecutive 
                 key value in the decryption loop can be tested*/
     int r = 0; /* This variable will be used to determine whether the user wishes to decrypt again with the new key or to exit 

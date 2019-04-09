@@ -4,9 +4,10 @@
 /* The following function defines how a given cipher word encrypted via. rotational cipher can be 
 decrypted if given the key */
 char Rkdecrypt(char *word){
-    char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
+    unsigned char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
     int k = 0;  /* this is again acting as the key given which will be used to decrypt the given encryption */
-  
+   
+    
         printf("Insert given key for number of rotations: "); /*given the key for the number of rotations initially used to encrypt 
         the word allows the decrypt program to move the same key of rotations backwards to achieve the initial letters*/
         scanf("%d", &k); 

@@ -3,7 +3,7 @@
 
 /* the following function will define how the word is encrypted using a rotation cipher*/
 char Rencrypt(char *word) {
-    char i = 0; // a counter to consecutively encrypt the letters within the inserted word 
+    unsigned char i = 0; // a counter to consecutively encrypt the letters within the inserted word 
     int k = 0; // this is the 'key', being the number of 'shifts' the letter will move - this will rotate k letters 
 
         printf("Insert key for rotation:"); // this printf and scanf is used to read the key from the user for rotation encryption. 

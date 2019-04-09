@@ -29,7 +29,7 @@ int main()
     int function = 0; /* f will acts as the integer which chooses out of the multiple functions of this code -
     i.e., 1 will be rotational cipher encryption, 2 will be rotational cipher decryption, 
     3 will be sucstitution cipher encryption and 4 will be rotational cipher decryption*/
-    int i=0;
+    unsigned char i = 0;
     int n=0; /* this is an integer for the number of letters in the word - 
                 used to kill the loop when the word is done being encrypted */
     
@@ -37,9 +37,9 @@ int main()
     from 1-5 to determine which function within the program they would like to use*/
  
         printf("Choose function you wish to use: \n");
-        printf("Insert 1 to encrypt using a rotational cipher \n");
-        printf("Insert 2 to decrypt using a rotational cipher, given the key \n");
-        printf("Insert 3 to decrypt using a rotational cipher, not given the key \n");
+        printf("Insert 1 to encrypt an input word using a rotational cipher \n");
+        printf("Insert 2 to decrypt an input word using a rotational cipher, given the key \n");
+        printf("Insert 3 to decrypt an input word using a rotational cipher, not given the key \n");
       /*  printf("Insert 3 to encrypt using a substitution cipher, \n");
         printf("Insert 4 to decrypt using a substitution cipher: "); */
         scanf("%d", &function);
@@ -55,7 +55,7 @@ int main()
             case 1:
                 printf("You chose to encrypt a word using a rotational cipher! \n");
                 printf("Insert word to be encrypted:"); // prompts the user to input word
-                scanf("%s[^\n]s", word); /*scans the word wished to be encrypted and puts it in the string */ 
+                scanf("%s", word); /*scans the word wished to be encrypted and puts it in the string */ 
             
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
                 while(word[i] != 0 ) {
