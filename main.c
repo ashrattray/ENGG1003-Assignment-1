@@ -80,6 +80,14 @@ int main()
                
                Rencrypt(word, n); /* the line of code indicating the string 'word' will be used 
                 in the encrypt function. */
+                i = 0; 
+                
+               while (i<n) {
+                   printf("%c", word[i]);
+                   i++; 
+               }
+               
+                printf("\n"); 
                
             break; /* the breaks within this switch case are used so that only one
             function will be used before the program exits (without it, the program will 
@@ -115,7 +123,17 @@ int main()
                 
                 Rkdecrypt(word, n); /* this line of code indicates the string word inputted will be used in the 
                 decryption function, as per the users choice*/
-            break; 
+               
+               i = 0; 
+               
+                while (i<n) {
+                    printf("%c", word[i]);
+                    i++; 
+                }
+                
+                printf("\n"); 
+         
+         break; 
             
     /* The switch case 3 statement defines that if the user inputs the value 3 into 'function' that they wish to
     decrypt a word encrypted using a rotational cipher, and that they have not been given the key. The program will 
@@ -152,6 +170,7 @@ int main()
     return 0; 
 }
 
+
 /* the following function will define how the word is encrypted using a rotation cipher*/
 char Rencrypt(char *word, int n) {
     char i = 0; // a counter to consecutively encrypt the letters within the inserted word 
@@ -167,33 +186,30 @@ char Rencrypt(char *word, int n) {
        while (i<n) {
         
     /* the first if statement in this while loop defines that if a character
-    of punctuation is entered, i.e. an apostrophe, than it will be printed unchanged*/
+    of punctuation is entered, i.e. an apostrophe, than it will be left unchanged within this function*/
            if(word[i] < 64){
-               printf("%c", word[i]);
+               word[i] = word[i]; 
                i++; 
            }
     /* This following else if defines how the letters are rotated by the key, being that the ACSII code 
     of each will have k added to it to make that letter the letter designated to the new ACSII code (going from A-Z)*/
            else if ((word[i] + k) < 91 && (word[i]) >64) {
-                word[i] = (word[i] + k);  
-                printf("%c", word[i]);
+                word[i] = (word[i] + k); 
               i++;
             }
     /* This last else if within the loop defines that if a letter is to rotate past Z, that the ACSII code will loop
     back around to A rather than to the following symbols who's codes are consecutively after Z
-    The minus 26 ensures the ACSII code stays within the bounds of the alphabet, while maintaining
+    The minus 26 ensures the ACSII code stays within the bounds of the capital alphabet, while maintaining
     the correct ciphering method and key*/
             else if ((word[i] + k)>90) {
                 word[i] = ((word[i] -26) + k);
-                printf("%c", word[i]);
                 i++;
             }
         }
-
-         printf("\n");
      
-    return 0;
+    return *word;
 }
+
 
 /* The following function defines how a given cipher word encrypted via. rotational cipher can be 
 decrypted if given the key */
@@ -212,31 +228,27 @@ char Rkdecrypt(char *word, int n){
        while (i<n) {
            
     /* the first if statement in this while loop defines that if a character
-    of punctuation is entered, i.e. an apostrophe, than it will be printed unchanged*/
+    of punctuation is entered, i.e. an apostrophe, than it will be left unchanged within this function*/
            if(word[i] < 64){
-               printf("%c", word[i]);
                i++; 
            }
     /* this else if statement defines that the ASCII code of each letter is taken and has the inputted
     key minused from it in order to achieve the initial ACSII code (before encryption) and 
-    printing the corresponding initial letter to the screem*/
+    replaces the letter within the string with the corresponding initial letter */
             else if ((word[i] - k )>= 65) {
                 word[i] = (word[i] - k);  
-                printf("%c", word[i]);
               i++;
             }
     /* this final else if statement defines that if the ACSII code goes below those associated to capital letters (being A), 
     it will rotate the ACSII code back to that associated with Z in order for the original letter to still be found. The plus 
-    26 within thise statement accounts for this and keeps the ACSII code within the order and bounds of the alphabet*/
+    26 within thise statement accounts for this and keeps the ACSII code within the order and bounds of the capital alphabet*/
             else if ((word[i] - k)<66) {
                 word[i] = ((word[i] - k) +26);
-                printf("%c", word[i]);
                 i++;
             }
         }
-         printf("\n");
      
-    return 0; 
+    return *word; 
 }
 
 /* The following function defines how the program will decrypt a given encrypted word when not given the key for the number of rotations. 
@@ -249,14 +261,15 @@ char Rdecrypt(char *word, int n){
     int r = 0; /* This variable will be used to determine whether the user wishes to decrypt again with the new key or to exit 
     the program if given the right word*/
 
-    /* The below code is very similar to the code used for encryption with a rotational cipher. 
-    However, this time the key number will be removed from the current letters in order to see from 
-    which position they were moved from, and therefore print the original word*/
+    /* The below code is very similar to the code used for dencryption with a rotational cipher. 
+    However, this time the key number is initialised as one, and the use will be asked after the decryption of key 1
+    if the word is correct.If they input no, the key will increase by one and the process will be repeated with the 
+    next consecutive key until it is indicated that the word is correct. */
        
        while (i<=n) {
            
     /* the first if statement in this while loop defines that if a character
-    of punctuation is entered, i.e. an apostrophe, than it will be printed unchanged*/
+    of punctuation is entered, i.e. an apostrophe, than it will be left unchanged within this function*/
            if(i<n && word[i] < 64){
                printf("%c", word[i]);
                i++; 
