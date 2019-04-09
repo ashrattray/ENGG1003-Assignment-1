@@ -3,7 +3,7 @@
 
 /* The following function defines how a given cipher word encrypted via. rotational cipher can be 
 decrypted if given the key */
-char Rkdecrypt(char *word, int n){
+char Rkdecrypt(char *word){
     char i = 0; /*again, this is a counter in order to only decrypt each letter of the word once before moving on to the next consecutive letter */
     int k = 0;  /* this is again acting as the key given which will be used to decrypt the given encryption */
   
@@ -15,7 +15,7 @@ char Rkdecrypt(char *word, int n){
     However, this time the key number will be removed from the current letters in order to see from 
     which position they were moved from, and therefore print the original word*/
        
-       while (i<n) {
+       while (word[i] != 0) {
            
     /* the first if statement in this while loop defines that if a character
     of punctuation is entered, i.e. an apostrophe, than it will be left unchanged within this function*/

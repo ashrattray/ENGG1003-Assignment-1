@@ -19,8 +19,8 @@ punctuation such as apostrophes, as well as numbers; however spaces still cause 
 quit and should be avoided.  
 Program must be run from the terminal section */
 
-char Rencrypt(char *word, int n); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
-char Rkdecrypt(char *word, int n); /* this is the prototype for the function that will handle decrypting a rotational cipher when given the rotation key*/
+char Rencrypt(char *word); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
+char Rkdecrypt(char *word); /* this is the prototype for the function that will handle decrypting a rotational cipher when given the rotation key*/
 char Rdecrypt(char *word, int n); /* this is the prototype for the fucntion that will handle decrypting a rotation cipher word without the rotation key*/
 
 int main() 
@@ -55,14 +55,10 @@ int main()
             case 1:
                 printf("You chose to encrypt a word using a rotational cipher! \n");
                 printf("Insert word to be encrypted:"); // prompts the user to input word
-                scanf("%s", word); /*scans the word wished to be encrypted and puts it in the string */ 
-                printf("Insert number of characters (including punctuation) in word: "); /* this again allows the user to tell how many letters are to be 
-                        encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
-                        characters within the string*/
-                scanf("%d", &n);
+                scanf("%s[^\n]s", word); /*scans the word wished to be encrypted and puts it in the string */ 
             
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
-                while(i<n) {
+                while(word[i] != 0 ) {
                     if (word[i] > 96) { /* this line effectively says "If the ACSII code of the letter lies within the values
                                     of lower case letters (i.e. ACSII numbers above 96), then the difference between a capital 
                                     letter and its respective lower case letter (being 32) must be subtracted from the lower case 
@@ -78,7 +74,7 @@ int main()
                     }
                 }
                
-               Rencrypt(word, n); /* the line of code indicating the string 'word' will be used 
+               Rencrypt(word); /* the line of code indicating the string 'word' will be used 
                 in the encrypt function. */
                
                i = 0; /* This statement returns the value of the couunter i to 0 in order to print 
@@ -86,7 +82,7 @@ int main()
                loop */
                 
     /* This following while statement prints the new encrypted word returned from the function to the screen*/ 
-               while (i<n) {
+               while (word[i] != 0) {
                    printf("%c", word[i]);
                    i++; 
                }
@@ -107,16 +103,15 @@ int main()
                 encrypted word they wish to decrypt*/
                 scanf("%s", word); /* this scanf places the input word within the string that is to be 
                 used in the function, therefore meaning it is the word that will be decrypted*/
-                printf("Insert number of characters (including punctuation) in encryption: "); /* this allows the user to tell how many letters are to be 
+           /*     printf("Insert number of characters (including punctuation) in encryption: "); /* this allows the user to tell how many letters are to be 
                             encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
                             characters within the string*/
-                scanf("%d", &n);
+           /*     scanf("%d", &n); */
             
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
-                while(i<n) {
+                while(word[i] != 0) {
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
-                        printf("%c", word[i]);
                         i++;
                     }
                     else {
@@ -125,7 +120,7 @@ int main()
                     }
                 }
                 
-                Rkdecrypt(word, n); /* this line of code indicates the string word inputted will be used in the 
+                Rkdecrypt(word); /* this line of code indicates the string word inputted will be used in the 
                 decryption function, as per the users choice*/
                
                i = 0; /* This statement returns the value of the couunter i to 0 in order to print 
@@ -134,7 +129,7 @@ int main()
                
     /* The following while function prints the decrypted word found within the function and returned to this
     case to the screen*/
-                while (i<n) {
+                while (word[i] !=0) {
                     printf("%c", word[i]);
                     i++; 
                 }
@@ -155,13 +150,12 @@ int main()
                 printf("Insert number of characters (including punctuation) in encryption: ");/* this allows the user to tell how many letters are to be 
                         encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
                         characters within the string*/
-                scanf("%d", &n);
+                scanf("%d", &n); 
             
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
-                while(i<n) {
+                while(i < n ) {
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
-                        printf("%c", word[i]);
                         i++;
                     }
                     else {
@@ -172,6 +166,7 @@ int main()
                 
                 Rdecrypt(word, n); /* This line of code indicates the string word inputted will be used in the decryption
                 function*/ 
+               
                
     /* As the Rdecrypt function needs to be repeated until the user tells the program that the correct word is found, 
     the print statements are found within the function, as well as the key and the other values needed for the function to work. 

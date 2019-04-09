@@ -2,7 +2,7 @@
 #include <string.h>
 
 /* the following function will define how the word is encrypted using a rotation cipher*/
-char Rencrypt(char *word, int n) {
+char Rencrypt(char *word) {
     char i = 0; // a counter to consecutively encrypt the letters within the inserted word 
     int k = 0; // this is the 'key', being the number of 'shifts' the letter will move - this will rotate k letters 
 
@@ -13,7 +13,7 @@ char Rencrypt(char *word, int n) {
     and prints each value as it is determined before increasing the value of the i counter to determine the next character in the string (next letter)
     If the ACSII characters go beyond Z with this rotation, they are rotated back to A etc as per how rotation ciphers work*/
      
-       while (i<n) {
+       while (word[i] != 0) {
         
     /* the first if statement in this while loop defines that if a character
     of punctuation is entered, i.e. an apostrophe, than it will be left unchanged within this function*/
