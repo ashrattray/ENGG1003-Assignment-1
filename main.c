@@ -26,6 +26,7 @@ char Rtencrypt(char *word, int k); /* this is the protoype for the encyption of 
                             rotation key*/
 char Rtkdecrypt(char *word, int k); /* This is the prototype for the function that will decrypt whatever is input into 'input.ext' encrypted with a rotational cipher 
                             and given the key, and should be used if the user wishes to decrypt more than one word*/
+char Sencrypt(char *word); /* this is the prototype for the function that will encrypt a user inputted word using a qwerty substitution cipher*/
 
 int main() 
 {
@@ -47,13 +48,16 @@ int main()
     will determine the switch case in which the program is directed to, and therefore the corresponding function*/
  
         printf("Insert number of function you wish to use: \n");
-        printf("(1) to encrypt an input word using a rotational cipher \n");
-        printf("(2) to decrypt an input word using a rotational cipher, given the key \n");
-        printf("(3) to decrypt an input word using a rotational cipher, not given the key \n");
+        printf("(1) to encrypt a single input word using a rotational cipher \n");
+        printf("(2) to decrypt a single input cipherword using a rotational cipher, given the key \n");
+        printf("(3) to decrypt a single input cipherword using a rotational cipher, not given the key \n");
         printf("(4) to encrypt a phrase from the file 'input.txt' to encrypt with a rotational cipher\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.)\n");
-        printf("(5) to decrypt a phrase from the file 'input.txt' to decrypt a rotational cipher (given the key)\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.)\n");
+        printf("(5) to decrypt a phrase from the file 'input.txt' to decrypt a rotational cipher (given the key)\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.\n   If the key is not known, keys can be tested consecutively starting at 1 until the correct phrase is determined.)\n");
+        printf("(6) to encrypt a single input word using the QWERTY substitution cipher \n");
+      
       /*  printf("Insert 3 to encrypt using a substitution cipher, \n");
         printf("Insert 4 to decrypt using a substitution cipher: "); */
+       
         scanf("%d", &function);
         
     /* The following switch statement will take the users inputted value of 'function' in order to determine which 
@@ -65,7 +69,7 @@ int main()
     and then input this all capital lettered word into the 'Rencrypt' function (definition found at bottom of code)
     which will define how this word will be encrypted */
             case 1:
-                printf("You chose to encrypt a word using a rotational cipher! \n");
+                printf("You chose to encrypt an input word using a rotational cipher! \n");
                 printf("Insert word to be encrypted:"); // prompts the user to input word
                 scanf("%s", word); /*scans the word wished to be encrypted and puts it in the string */ 
             
@@ -110,8 +114,8 @@ int main()
     be deciphered - which is then converted to all capital letters again - before putting this all capitals word into the 
     Rkdecrypt function which defines how this input word will be decrypted*/          
             case 2:
-                printf("You chose to decrypt a word using a rotational cipher (given the key)! \n");
-                printf("Insert encrypted word to be decrypted: "); /*this line prompts the user to input the 
+                printf("You chose to decrypt an input word using a rotational cipher (given the key)! \n");
+                printf("Insert cipherword to be decrypted: "); /*this line prompts the user to input the 
                 encrypted word they wish to decrypt*/
                 scanf("%s", word); /* this scanf places the input word within the string that is to be 
                 used in the function, therefore meaning it is the word that will be decrypted*/
@@ -152,7 +156,7 @@ int main()
     into the Rdecrypt function, which defines how it will be decrypted without the needed key*/
             case 3: 
                 printf("You chose to decrypt a word using a rotational cipher (without the key)! \n");
-                printf("Insert word to be decrypted: "); /*this line prompts the user to input the cipher word*/
+                printf("Insert cipherword to be decrypted: "); /*this line prompts the user to input the cipher word*/
                 scanf("%s", word); /* this scanf puts the word inserted by the user into the string 'word' to be used 
                 in the decryption function */
                 printf("Insert number of characters (including punctuation) in encryption: ");/* this allows the user to tell how many letters are to be 
@@ -188,7 +192,8 @@ int main()
     into the file before running the program*/
    
             case 4:
-            
+                printf("You chose to encrypt a phrase from 'input.txt' with a rotational cipher! \n"); 
+                
                 input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
                 
                 printf("Insert key for rotation:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
@@ -223,8 +228,14 @@ int main()
                 
             break;
             
+    /* The switch case 5 defines that if the user inputs 5, that single letters will be read from the file 'input.txt' and used in 
+    the Rtdecrypt function to be decrypted. It will decrypt letter by letter and print each original letter to this screen 
+    until it reaches the end of the file. */
+   
             case 5:
-            
+                
+                printf("You chose to decrypt a phrase read from 'input.txt' encrypted with a rotational cipher! \n");
+                
                 input = fopen("input.txt", "r"); /* This opens the file that the program will read and then decrypt*/
                 
                 printf("Insert key for decryption:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
@@ -258,6 +269,35 @@ int main()
                     printf("\n");
             break;
             
+            case 6:
+            
+                printf("You chose to encrypt an input word using a QWERTY substitution cipher! \n");
+                printf("Insert word to be encrypted:"); /* Prompts user to input word */
+                scanf("%s", word); /* Puts the inputted word into the string 'word' to be encrypted*/
+            
+    /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
+                while(word[i] != 0) {
+                    if (word[i] > 96) { 
+                        word[i] = (word[i] - 32);
+                        i++;
+                    }
+                    else {
+                        word[i] = word[i];
+                        i++;
+                    }
+                }
+
+                Sencrypt(word); 
+                
+                int i=0;
+                
+    /* This following while statement prints the new encrypted word returned from the function to the screen*/ 
+               while (word[i] != 0) {
+                   printf("%c", word[i]);
+                   i++; 
+               }
+               
+                printf("\n");
             
             
     } // end of switch statement bracket so STOP DELETING IT
