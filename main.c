@@ -24,6 +24,8 @@ char Rkdecrypt(char *word); /* this is the prototype for the function that will 
 char Rdecrypt(char *word, int n); /* this is the prototype for the fucntion that will handle decrypting a rotation cipher word without the rotation key*/
 char Rtencrypt(char *word, int k); /* this is the protoype for the encyption of the file input.txt which must be used to encrypt passages rather than just words. it uses
                             rotation key*/
+char Rtkdecrypt(char *word, int k); /* This is the prototype for the function that will decrypt whatever is input into 'input.ext' encrypted with a rotational cipher 
+                            and given the key, and should be used if the user wishes to decrypt more than one word*/
 
 int main() 
 {
@@ -33,7 +35,10 @@ int main()
     3 will be sucstitution cipher encryption and 4 will be rotational cipher decryption*/
     unsigned char i = 0;
     int n=0; /* this is an integer for the number of letters in the word - 
-                used to kill the loop when the word is done being encrypted */
+                used to kill the loop when the word is done being encrypted - used only for case 3 */
+    int k = 0; /* this is the 'key', being the number of 'shifts' the letter will move - this will rotate k letters 
+                used only for cases 4 and 5, as they require the key as an argument for their function*/
+    
     FILE *input;
     
     
@@ -45,7 +50,8 @@ int main()
         printf("(1) to encrypt an input word using a rotational cipher \n");
         printf("(2) to decrypt an input word using a rotational cipher, given the key \n");
         printf("(3) to decrypt an input word using a rotational cipher, not given the key \n");
-        printf("(4) to encrypt a phrase from the file 'input.txt' to encrypt with a rotational cipher\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.)");
+        printf("(4) to encrypt a phrase from the file 'input.txt' to encrypt with a rotational cipher\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.)\n");
+        printf("(5) to decrypt a phrase from the file 'input.txt' to decrypt a rotational cipher (given the key)\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.)\n");
       /*  printf("Insert 3 to encrypt using a substitution cipher, \n");
         printf("Insert 4 to decrypt using a substitution cipher: "); */
         scanf("%d", &function);
@@ -184,7 +190,6 @@ int main()
             case 4:
             
                 input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
-                int k = 0; // this is the 'key', being the number of 'shifts' the letter will move - this will rotate k letters 
                 
                 printf("Insert key for rotation:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
                 scanf("%d", &k);
@@ -214,8 +219,48 @@ int main()
                     printf("%c", word[i]); 
                 }
                 
-            printf("\n");
-        }
+                printf("\n");
+                
+            break;
+            
+            case 5:
+            
+                input = fopen("input.txt", "r"); /* This opens the file that the program will read and then decrypt*/
+                
+                printf("Insert key for decryption:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
+                scanf("%d", &k);
+            
+    /* The following while loop works to read every character within the file one-by-one, until it reaches the end of the characters within the file,
+    in which the while loop will then stop*/
+                while(feof(input) == 0) {
+                    char c; /* This is a variable that will be used to store single characters read by the following fscanf before they are inserted 
+                            into the string that will be used in the function to decrypt the phrase*/
+                    fscanf(input, "%c", &c); /* This fscanf reads a single character from the file 'input.txt' and puts it in the variable 
+                                                c*/
+                    
+                    
+                    word [i] = c; /* This assigns the single character from the file read by the program to the first place
+                                    within the string 'word' so that it can be inputted later into the Rtdecrypt function*/
+                    
+    /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
+                    if (word[i] > 96) { 
+                        word[i] = (word[i] - 32);
+                        } 
+                    
+                    Rtkdecrypt(word, k); /* This line indicates that the single read character input into the string 'word'
+                                            will be used in the Rtdecrypt function*/
+    
+    /* The following print statement prints the decrypted letter found within the function and returned to this
+    case to the screen*/
+                    printf("%c", word[i]); 
+                }
+
+                    printf("\n");
+            break;
+            
+            
+            
+    } // end of switch statement bracket so STOP DELETING IT
 
     return 0; 
 }
