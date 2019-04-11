@@ -22,7 +22,7 @@ char Sencrypt(char *word){
            
            else if(word[i] > 64 ) { 
                k = (word[i] - 65); 
-               word[i] = ciphertext[k];
+               word[i] = ciphertext[k]; //iuehrgiuher
                i++;
            } 
         

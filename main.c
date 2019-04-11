@@ -297,7 +297,7 @@ int main()
                    i++; 
                }
                
-                printf("\n");
+                printf("\n"); //uyfbuytf 
             
             
     } // end of switch statement bracket so STOP DELETING IT
