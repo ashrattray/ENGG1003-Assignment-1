@@ -172,7 +172,7 @@ int main()
                
                
     /* As the Rdecrypt function needs to be repeated until the user tells the program that the correct word is found, 
-    the print statements are found within the function, as well as the key and the other values needed for the function to work. 
+    the print statement . s are found within the function, as well as the key and the other values needed for the function to work. 
     This allows the function to be repeated until the user tells it to stop*/
                 
             break;
