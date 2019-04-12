@@ -69,8 +69,8 @@ int main()
         printf("(3) to decrypt a single input cipherword using a rotational cipher, not given the key \n");
         printf("(4) to encrypt a phrase from the file 'input.txt' to encrypt with a rotational cipher\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.)\n");
         printf("(5) to decrypt a phrase from the file 'input.txt' to decrypt a rotational cipher (given the key)\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.\n   If the key is not known, keys can be tested consecutively starting at 1 until the correct phrase is determined.)\n");
-        printf("(6) to encrypt a single input word using the QWERTY substitution cipher \n");
-        printf("(7) to decrypt a single input cipherword encrypted using a QWERTY substitution cipher\n"); 
+        printf("(6) to encrypt a single input word a substitution cipher \n");
+        printf("(7) to decrypt a single input cipherword encrypted using a substitution cipher\n"); 
        
         scanf("%d", &function);
         
@@ -264,7 +264,7 @@ int main()
             
             case 6:
             
-                printf("You chose to encrypt an input word using a QWERTY substitution cipher! \n");
+                printf("You chose to encrypt an input word using a substitution cipher! \n");
                 printf("Insert word to be encrypted:"); /* Prompts user to input word */
                 scanf("%s", word); /* Puts the inputted word into the string 'word' to be encrypted*/
             
@@ -289,7 +289,7 @@ int main()
             
             case 7:
             
-                printf("You chose to decrypt a single cipherword encrypted with a QWERTY substitution cipher! \n");
+                printf("You chose to decrypt a single cipherword encrypted with a substitution cipher! \n");
                 printf("Insert cipherword to be decrypted: ");
                 scanf("%s", word); 
                 i = 0; //sets counter for the string 'word' to 0
