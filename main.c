@@ -25,6 +25,7 @@ features in the program.
 For the 1st, 2nd, 3rd, 6th and 7th function, words inputted can only be a single word or the program will exit, as when the string reads empty space (i.e. a space) it
 recognises it as the end of the string and exits. Therefore, if a sentence is wished to be encrypted, the 5th or 6th function must be used for 
 a rotational cipher, and the 8th and 9th function must be used for a substitution cipher. 
+The single file 'input.txt' should be used whenever the user wishes to input a passage into the program. 
 This code has been optimised in order to allow the input of capital and lower case letters, and allows the input of common
 punctuation such as apostrophes, as well as numbers. If the program encounters these characters, they will be ignored 
 and printed back the same as the original.  
@@ -67,8 +68,8 @@ int main()
         printf("(1) to encrypt a single input word using a rotational cipher \n");
         printf("(2) to decrypt a single input cipherword using a rotational cipher, given the key \n");
         printf("(3) to decrypt a single input cipherword using a rotational cipher, not given the key \n");
-        printf("(4) to encrypt a phrase from the file 'input.txt' to encrypt with a rotational cipher\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.)\n");
-        printf("(5) to decrypt a phrase from the file 'input.txt' to decrypt a rotational cipher (given the key)\n   (note: Phrase must be input into this file before the program is run.\n   If this has not been done, exit the program to do so before running the program again.\n   If the key is not known, keys can be tested consecutively starting at 1 until the correct phrase is determined.)\n");
+        printf("(4) to encrypt a phrase from the file 'input.txt' to encrypt with a rotational cipher\n   (note: \n   1.Phrase must be input into this file before the program is run.\n     If this has not been done, exit the program to do so before running the program again.)\n");
+        printf("(5) to decrypt a phrase from the file 'input.txt' to decrypt a rotational cipher (given the key)\n   (note: \n   1.Phrase must be input into this file before the program is run.\n     If this has not been done, exit the program to do so before running the program again.\n   2.If the key is not known, use function (3) and input a single cipherword from the passage in 'input.txt'\n     to determine the key, then use this function with the determined key to determine the entire message.)\n");
         printf("(6) to encrypt a single input word a substitution cipher \n");
         printf("(7) to decrypt a single input cipherword encrypted using a substitution cipher\n"); 
        
