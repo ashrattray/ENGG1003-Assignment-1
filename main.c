@@ -294,7 +294,7 @@ int main()
                 scanf("%s", word); 
                 i = 0; //sets counter for the string 'word' to 0
                 
-    /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
+    /* this while loop works to convert any lower case letters input into capitals before the word enters the function (as explained in the first switch case statement)*/
                     while(word[i] != 0) {
                         if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
@@ -307,9 +307,9 @@ int main()
                         }
                     }
                 
-                Sdecrypt(word);
+                Sdecrypt(word); // passes the inputted word into the sdecrypt function. 
                 
-                printf("%s\n", word);
+                printf("%s\n", word); // prints the decrypted word to the screen. 
                 
             break;
             

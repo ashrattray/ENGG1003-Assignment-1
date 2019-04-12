@@ -8,7 +8,7 @@ printed in the main.c case 6 switch statement. */
 char Sencrypt(char *word){
     
     unsigned char i = 0; /* Position counter for the word being encrypted, used to change each letter consecutively*/
-    char ciphertext[] = "QWERTYUIOPASDFGHJKLZXCVBNM";
+    char ciphertext[] = "QWERTYUIOPASDFGHJKLZXCVBNM"; //hardcoded QWERTY substitution ciphertext
     int k = 0; /* Position counter for the ciphertext used to determine which substitution letter the original letter will be replaced with*/
     int c = 0; /* integer to hold the value of 1 or 2 depending on which substituion ciper the user wishes to use in order to allow the use of a switch statement*/
     
