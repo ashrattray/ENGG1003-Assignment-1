@@ -51,7 +51,6 @@ char Sencrypt(char *word){
            if(word[i] < 64){
                word[i] = word[i]; 
                i++; 
-               printf("%c", word[i]);
            }
     /* This else if statement states that if the letter is a captital letter (as all letetrs are converted to)
     that its ACSII code will be taken and have 65 removed from it in order to make the letter its related number in the 
@@ -66,7 +65,6 @@ char Sencrypt(char *word){
            } 
         
     } 
-
     
     return *word; /* This returns the new cipherword to the original main.c case to be printed */
     
