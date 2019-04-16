@@ -16,7 +16,8 @@ char Rencrypt(char *word) {
        while (word[i] != 0) {
         
     /* the first if statement in this while loop defines that if a character
-    of punctuation is entered, i.e. an apostrophe, than it will be left unchanged within this function*/
+    of punctuation is entered, i.e. the ACSII code is below 64 and is therefore punctuation such as an apostrophe or space, then it
+    will be left unchanged within this function*/
            if(word[i] < 64){
                word[i] = word[i]; 
                i++; 

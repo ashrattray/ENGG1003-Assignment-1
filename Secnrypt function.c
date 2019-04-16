@@ -61,7 +61,7 @@ char Sencrypt(char *word){
            else if(word[i] > 64 ) { 
                k = (word[i] - 65); 
                word[i] = ciphertext[k]; // letter number 'i' in string 'word' becomes letter number 'k' from string 'ciphertext'
-               i++;
+               i++; // increments i to encrypt the next letter
            } 
         
     } 

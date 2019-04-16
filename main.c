@@ -52,7 +52,8 @@ int main()
                 used only for cases 4 and 5, as they require the key as an argument for their function*/
     
     FILE *input; /* This is introducing the file which can be read from in the functions lower in the list. */
-    
+    FILE *output; /* this is introducing the file which will have encryptions/encryptions printed to it from functions called on 
+                within main.c */
     
     /* the below 9 lines act as the 'user-friendly' manuel in which the user can insert a number
     from 1-9 to determine which function within the program they would like to use. The prompted input of the user 
@@ -186,8 +187,9 @@ int main()
                 printf("\n!!Insert text you wish to encrypt into the fie 'input.txt' before continuing!! \n");
                 
                 input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
+                output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
                 
-                printf("Insert key for rotation:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
+                printf("\nInsert key for rotation:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
                 scanf("%d", &k);
             
     /* The following while loop works to read every character within the file one-by-one, until it reaches the end of the characters within the file,
@@ -211,11 +213,12 @@ int main()
                                             will be used in the Rtencrypt function*/
     
     /* The following print statement prints the encrypted letter found within the function and returned to this
-    case to the screen*/
-                    printf("%c", word[i]); 
+    case file 'output.txt*/
+   
+                    fprintf(output, "%c", word[i]); 
                 }
                 
-                printf("\n");
+                printf("\nObserve encryption within file 'output.txt'\n");
                 
             break;
             
