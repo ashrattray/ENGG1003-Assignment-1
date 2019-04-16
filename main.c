@@ -194,7 +194,7 @@ int main()
             
     /* The following while loop works to read every character within the file one-by-one, until it reaches the end of the characters within the file,
     in which the while loop will then stop*/
-                while(feof(input) == 0) {
+                while(feof(input) != 1) {
                     char c; /* This is a variable that will be used to store single characters read by the following fscanf before they are inserted 
                             into the string that will be used in the function to encrypt the phrase*/
                     fscanf(input, "%c", &c); /* This fscanf reads a single character from the file 'input.txt' and puts it in the variable 
@@ -218,7 +218,7 @@ int main()
                     fprintf(output, "%c", word[i]); 
                 }
                 
-                printf("\nObserve encryption within file 'output.txt'\n");
+                printf("\nObserve encryption within file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
                 
             break;
             
@@ -231,13 +231,14 @@ int main()
                 printf("You chose to decrypt a phrase read from 'input.txt' encrypted with a rotational cipher! \n");
                 printf("\n!!Input ciphertext you wish to decrypt into the file 'input.txt' before continuing!! \n");
                 input = fopen("input.txt", "r"); /* This opens the file that the program will read and then decrypt*/
+                output = fopen("output.txt", "w"); /* This opens the file in which the function will print the decryption to*/
                 
-                printf("Insert key for decryption:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
+                printf("\nInsert key for decryption:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
                 scanf("%d", &k);
             
     /* The following while loop works to read every character within the file one-by-one, until it reaches the end of the characters within the file,
     in which the while loop will then stop*/
-                while(feof(input) == 0) {
+                while(feof(input) != 1) {
                     char c; /* This is a variable that will be used to store single characters read by the following fscanf before they are inserted 
                             into the string that will be used in the function to decrypt the phrase*/
                     fscanf(input, "%c", &c); /* This fscanf reads a single character from the file 'input.txt' and puts it in the variable 
@@ -256,11 +257,11 @@ int main()
                                             will be used in the Rtdecrypt function*/
     
     /* The following print statement prints the decrypted letter found within the function and returned to this
-    case to the screen*/
-                    printf("%c", word[i]); 
+    case to the file 'output.txt'*/
+                    fprintf(output, "%c" , word[i]); 
                 }
 
-                    printf("\n");
+                    printf("\nObserve decryption within the file 'output.txt'.\n ");
             break;
             
             case 6:
