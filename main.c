@@ -10,19 +10,23 @@ phrase to the screen.
 The third function defines how an rotational cipher encrypted ciphertext can be decrypted without the key (number of rotations) being 
 known. It tests consecutive values of the key k until the user inputs to the program that the deciphered text is correct. 
 The fourth and fifth functions work in the same way as the previous 3, however they read entire blocks of text that the user is 
-prompted to input into the file 'input.txt'. However, to decrypt a block of text not knowing the key, it is recommended that the
+prompted to input into the file 'input.txt' and the encrypted or decrypted text respectfully will be printed to the file 'output.txt'
+However, to decrypt a block of text not knowing the key, it is recommended that the
 user uses the 3rd function. 
 The 6th function is the same as the first function, however rather than using a rotational cipher, it encrypts text using a substitution cipher, 
 and the user is prompted to choose whether they wish to use the commonly used QWERTY substitution cipher or an input cipher. 
 The 7th function is the same as the second function, however it decrypts ciphertext encrypted with either the common QWERTY substitution cipher or 
-the users input ciphertext.    
+the users input ciphertext.  
+The 8th and the 9th function within this program works the same as the 6th and 7th, however it reads text to encrypt from the file 'input.txt' and 
+writes the encrypted or decrypted text respectfully to the file 'output.txt'.   
 The user is prompted to input all information needeed for the program to work. In the cases of the program reading paragraphs from the 
 'input.txt' file, the user is also prompted to make sure they have inputted what they wish to use in there before using the program, if not the 
 program indicates the user should quit to do that before running the program again. This is to reduce complication when using these 
 features in the program. 
 The program can read paragraphs from both the user's input and the file 'input.txt', and therefore it is up to the user to decide which 
 function they deem easier to use. 
-The single file 'input.txt' should be used whenever the user wishes to input a passages into the  6th and 7th functions in the program. 
+The single file 'input.txt' should be used whenever the user wishes to input a passages into 4th, 5th, 8th and 9th functions in the program, and 
+the encrypted or decrypted text for these functions should be read from the 'output.txt' file as is promted by the program. 
 This code has been optimised in order to allow the input of capital and lower case letters, and allows the input of common
 punctuation such as apostrophes, as well as numbers. If the program encounters these characters, they will be ignored 
 and printed back the same as the original.  
@@ -226,8 +230,8 @@ int main()
                     fprintf(output, "%c", word[i]); 
                 }
                 
-                fclose(input);
-                fclose(output); 
+                fclose(input); //closes the input file 
+                fclose(output); //closes the output file
                 
                 printf("\nObserve encryption within file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
                 
@@ -271,7 +275,10 @@ int main()
     case to the file 'output.txt'*/
                     fprintf(output, "%c" , word[i]); 
                 }
-
+                
+                    fclose(input); //closes the input file 
+                    fclose(output); //closes the output file
+                    
                     printf("\nObserve decryption within the file 'output.txt'.\n ");
             break;
             
@@ -362,6 +369,12 @@ int main()
                     
                     fprintf(output, "%c" , word[i]);
                 }
+                
+                fclose(input); //closes the input file 
+                fclose(output); //closes the output file
+                
+                printf("\nObserve decrypted text from the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
+                
             break; 
             
             case 9:
@@ -392,6 +405,12 @@ int main()
                     
                     fprintf(output, "%c" , word[i]); 
                 }
+                
+                fclose(input); //closes the input file 
+                fclose(output); //closes the output file
+                
+                printf("\nObserve decrypted text from the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
+            
             break; 
     } // end of switch statement bracket so STOP DELETING IT
 
