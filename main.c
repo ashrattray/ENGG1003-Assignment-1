@@ -38,10 +38,15 @@ char Rtkdecrypt(char *word, int k); /* This is the prototype for the function th
 char Sencrypt(char *word); /* this is the prototype for the function that will encrypt a user inputted word using a qwerty substitution cipher*/
 char Sdecrypt(char *word); /* This is the prototype for the function that will take a single inputted cipherword from the user encrypted 
                             with a QWERTY substitution cipher and decrypt it to the original word. */
+char Stencrypt(char *word, char *ciphertext);/* This is the prototype for the function that will read text from the file 'input.txt' and encrypt it with a substitution 
+                                                cipher inputted by the user*/
+char Stdecrypt(char *word, char *ciphertext); /* This is the prototype for the function that will read text from the file 'input.txt' and decrypt it using the substitution 
+                                                cipher key inputted by the user. */
 
 int main() 
 {
     char word [1000]; /*initialises string with a number of letters most words won't exceed */  
+    char ciphertext[10000]; //initialises the string to be used for ciphertext
     int function = 0; /* f will acts as the integer which chooses out of the multiple functions of this code -
     i.e., 1 will be rotational cipher encryption, 2 will be rotational cipher decryption, 
     3 will be sucstitution cipher encryption and 4 will be rotational cipher decryption*/
@@ -66,12 +71,14 @@ int main()
         printf("(1) to encrypt using a rotational cipher \n");
         printf("(2) to decrypt ciphertext using a rotational cipher, given the key \n");
         printf("(3) to decrypt ciphertext using a rotational cipher, not given the key \n");
-        printf("(4) to encrypt a phrase from the file 'input.txt' to encrypt with a rotational cipher\n");
-        printf("(5) to decrypt a phrase from the file 'input.txt' to decrypt a rotational cipher (given the key)\n");
+        printf("(4) to encrypt a phrase from the file 'input.txt' with a rotational cipher\n");
+        printf("(5) to decrypt a phrase from the file 'input.txt' encrypted using a rotational cipher (given the key)\n");
         printf("(6) to encrypt using a substitution cipher \n");
         printf("(7) to decrypt ciphertext encrypted using a substitution cipher\n"); 
+        printf("(8) to encrypt a phrase from the file 'input.txt' using a substitution cipher\n");
+        printf("(9) to decrypt a phrase from the file 'input.txt' encrypted using a substitution cipher\n"); 
        
-        scanf("%d", &function);
+        scanf("%d", &function); //reads the input of a number from 1-9 from the user to initiate a particular switch statement designated to the desired function. 
         
     /* The following switch statement will take the users inputted value of 'function' in order to determine which 
     function the user wishes to use. Each inputted number relates to a different case statement corresponding to that 
@@ -194,7 +201,8 @@ int main()
             
     /* The following while loop works to read every character within the file one-by-one, until it reaches the end of the characters within the file,
     in which the while loop will then stop*/
-                while(feof(input) != 1) {
+                
+                while(!feof(input)) {
                     char c; /* This is a variable that will be used to store single characters read by the following fscanf before they are inserted 
                             into the string that will be used in the function to encrypt the phrase*/
                     fscanf(input, "%c", &c); /* This fscanf reads a single character from the file 'input.txt' and puts it in the variable 
@@ -217,6 +225,9 @@ int main()
    
                     fprintf(output, "%c", word[i]); 
                 }
+                
+                fclose(input);
+                fclose(output); 
                 
                 printf("\nObserve encryption within file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
                 
@@ -264,11 +275,15 @@ int main()
                     printf("\nObserve decryption within the file 'output.txt'.\n ");
             break;
             
+    /* The switch case 6 statement defines that if the user inputs 6, then the program will initiate this case statement which 
+    will read inputted phrases from the user and enter them within the function that will encrypt them with a substitution cipher
+    of the users choosing.*/
+   
             case 6:
             
-                printf("You chose to encrypt an input word using a substitution cipher! \n");
-                printf("Insert words to be encrypted:"); /* Prompts user to input word */
-                scanf(" %[^\n]s", word); /* Puts the inputted word into the string 'word' to be encrypted*/
+                printf("You chose to encrypt input text using a substitution cipher! \n");
+                printf("Insert words to be encrypted:"); /* Prompts user to input words */
+                scanf(" %[^\n]s", word); /* Puts the inputted words into the string 'word' to be encrypted*/
             
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
                 while(word[i] != 0) {
@@ -276,6 +291,7 @@ int main()
                         word[i] = (word[i] - 32);
                         i++;
                     }
+    /* This else statement states that if the word is a capital letter, then it will be left unchanged */
                     else {
                         word[i] = word[i];
                         i++;
@@ -289,10 +305,13 @@ int main()
             
             break;
             
+    /* The switch case 7 statement defines that if the user inputs 7 into the program, then it will initiate 
+    this case 7 which will promt the program to take inputted words from the user and pass them to the function 
+    responsible for decrypting phrases encrypted with a substitution cipher*/
             case 7:
             
-                printf("You chose to decrypt a single cipherword encrypted with a substitution cipher! \n");
-                printf("Insert ciphertext to be decrypted: ");
+                printf("You chose to decrypt ciphertext encrypted with a substitution cipher! \n");
+                printf("Insert ciphertext to be decrypted: "); //promts user to insert cipherwords
                 scanf(" %[^\n]s", word); 
                 i = 0; //sets counter for the string 'word' to 0
                 
@@ -303,7 +322,7 @@ int main()
                         i++;
                         }
                         
-                        else {
+                        else { //letter remains unchanged if already upper case letter 
                         word[i] = word[i];
                         i++;
                         }
@@ -315,10 +334,65 @@ int main()
                 
             break;
             
+            case 8:
+            
+                printf("You chose to encrypt a phrase from the file 'input.txt' using a substitution cipher!\n");
+                printf("\n!!Insert phrase you wish to encrypt into the file 'input.txt'!!\n");
+                printf("Insert substitution cipher key below their designated letters\n");
+                printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ\n");
+                scanf("%s", ciphertext);
                 
+                input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
+                output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
+                
+                while(!feof(input)) {
+                    char c; /* This is a variable that will be used to store single characters read by the following fscanf before they are inserted 
+                            into the string that will be used in the function to encrypt the phrase*/
+                    fscanf(input, "%c", &c); /* This fscanf reads a single character from the file 'input.txt' and puts it in the variable 
+                                                c*/
             
+                    word [i] = c; /* This assigns the first value of the string 'word' with the letter read from the file 'input.txt'. */
             
+    /* this if statement works to convert any lower case letters input into capitals before the word enters the function*/
+                    if (word[i] > 96) { 
+                        word[i] = (word[i] - 32);
+                    } 
+                    
+                    Stencrypt(word, ciphertext); 
+                    
+                    fprintf(output, "%c" , word[i]);
+                }
+            break; 
             
+            case 9:
+           
+                printf("You chose to decrypt a phrase from the file 'input.txt' encrypted with a substitution cipher!\n");
+                printf("\n!!Insert phrase you wish to decrypt into the file 'input.txt'!!\n");
+                printf("Insert ciphertext used to encrypt below their designated letters\n");
+                printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ\n");
+                scanf("%s", ciphertext); 
+            
+                input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
+                output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
+                
+                while(!feof(input)) {
+                    char c; /* This is a variable that will be used to store single characters read by the following fscanf before they are inserted 
+                            into the string that will be used in the function to encrypt the phrase*/
+                    fscanf(input, "%c", &c); /* This fscanf reads a single character from the file 'input.txt' and puts it in the variable 
+                                                c*/
+            
+                    word [i] = c; /* This assigns the first value of the string 'word' with the letter read from the file 'input.txt'. */
+            
+    /* this if statement works to convert any lower case letters input into capitals before the word enters the function*/
+                    if (word[i] > 96) { 
+                        word[i] = (word[i] - 32);
+                    } 
+                    
+                    Stdecrypt(word, ciphertext); 
+                    
+                    fprintf(output, "%c" , word[i]); 
+                }
+            break; 
     } // end of switch statement bracket so STOP DELETING IT
 
     return 0; 
