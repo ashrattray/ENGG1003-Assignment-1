@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 
+/* The following function works the same as the sdecrypt function, however it reads only a single character within the string 
+'word' passed from the main.c and decrypts it using the string 'ciphertext' also passed from main.c. The return value 
+is only the string 'word' containing the single decrypted letter which is passed back to main.c to be printed before the next 
+character in the file is passed to this function to also be encrypted until the end of the file is reached. Like sdecrypt, it uses 
+the position counters of in i and k to be compared to eachother, and the value of k is then used to find the initial letter before 
+encryption. */
+
 char Stdecrypt(char *word, char *ciphertext) {
     
     int k=0; /* This initialised the counter k to zero so that each consecutive letter in the string 'ciphertext' can be tested against 
@@ -12,7 +19,7 @@ char Stdecrypt(char *word, char *ciphertext) {
     if(word[i] < 64){
         word[i] = word[i]; 
         
-        return *word; 
+        return *word; //passes the decrypted letter back to the main.c to be printed
     }
       
     while (k<27) {

@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 
+/* The following function has the same process as the sencrypt function, however it reads the inputted text to be 
+encrypted from the input.txt file as is defined within the main.c. This function takes the string 'word' passed from main.c 
+containing only a single character from the file and the string 'ciphertext' inserted within the main.c to be used, and uses 
+the int counters of k and i in order to indicate the correct positions of i and k within the strings 'word' and *ciphertext' respectively in order 
+to encrypt the letter with the correct ciphertext. Each if statement found below has a line responsible for returning the string  'word'
+at the end after the correct if statement as been applied. Data restrictions are that both the strings must have chars (letters) inputted into them*/
+
 char Stencrypt(char *word, char *ciphertext) {
     
     int k = 0; /* Position counter for the ciphertext used to determine which substitution letter the original letter will be replaced with*/
@@ -16,7 +23,7 @@ char Stencrypt(char *word, char *ciphertext) {
     of punctuation is entered, i.e. an apostrophe, than it will be left unchanged within this function*/
            if(word[i] < 64){
                word[i] = word[i]; 
-               return *word;  
+               return *word;  //returns the encryped letter back to main.c to be printed. 
            }
     /* This else if statement states that if the letter is a captital letter (as all letetrs are converted to)
     that its ACSII code will be taken and have 65 removed from it in order to make the letter its related number in the 

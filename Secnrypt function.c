@@ -1,9 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 
-/* This function defines how a single inputted word from the user will be converted to its QWERTY substitutional cipher word. It's only 
+/* This function defines how a single inputted word from the user will be converted to its substitutional cipher word. It's only 
 argument is the word inputted by the user in the main.c case 6 function, and it only returns the new encrypted word to be 
-printed in the main.c case 6 switch statement. */
+printed in the main.c case 6 switch statement. This function gives the user an option to use the common QWERTY rotational cipher t
+ encrypt, or to insert their own ciphertext to be used as a key. The unsigned char i is used as a position counter in order to encrypt 
+ each letter within the string 'word' consecutively, and not encrypteany letter twice. The integer k is used for the same reason, however 
+ is used as the positional counter within the string 'ciphertext'. The value of k is found by minusing the different between the ACSII code 
+ of A and 0 (as 0 is the first element within a string) and this is minused from the ACSII code of the letter at word[i]. This k is then used 
+ to find the corresponding letter within the ciphertext, and the word[i] becomes the new letter before i is incremented to encrypt the next 
+ letter within the string. The initialised integer c is only used to indicate to the program which switch statement to run, depending on which 
+ substitution cipher the user wishes to use. */
 
 char Sencrypt(char *word){
     

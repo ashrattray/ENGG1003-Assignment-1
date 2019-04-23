@@ -1,6 +1,18 @@
 #include <stdio.h>
 #include <string.h>
 
+/* the following function defines how ciphertext encrypted with a particular substitution cipher is decrypted to the original 
+text. This function takes the string 'word' passed from the main.c, as well as the unsigned counter char i ( to be used 
+as a position indicator within the string 'word') the string of 'ciphertext' used for encryption inserted by the user, the 
+counter integer k (to be used as a positional indicator within the string 'ciphertext', and the int c used to determine which substitution 
+cipher the user wishes to use which is decided within the switch statement seen below. The program tests the letters found within the ciphertext[k]
+to see whether or not they correspond to the ACSII code of the letter at qord[i]. When the correct k value is found, then the difference between the ACSII 
+codes 0-25 and the acsii codes within the bounds of the capital alphabet is added to the value of k to determine the original letter before the encryption, 
+and word[i] becomes this new acsii code and letter, and the program increments i and tests again all values of k starting at 0 to decrypt 
+the next letter. The value of k is incremented within one of the flow control loops until the correct one is found. 
+When the text is completed, the function returns the string 'word' containing the decrypted text back to main.c to get printed. The data type 
+restrictions include that the ciphertext inserted by the user must be letters (chars) as is the same with the string 'word'. */
+
 char Sdecrypt(char *word) {
     
     unsigned char i = 0; /*Counter used to keep track of which letter (position) of the string 'word'

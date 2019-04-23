@@ -229,7 +229,7 @@ int main()
     prompt the user to observe the finished encryption within the output file, close all the files which have been used and end the program. Without 
     this statement the program would print the last letter in 'input.txt' twice.*/
                     if (feof(input)) {
-                        printf("\nObserve Encryption within the file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
+                        printf("\nAlso observe encryption within the file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
                         fclose(input); //closes the input file 
                         fclose(output); //closes the output file
                         return 0; //ends the program, as the file has been read and encrypted to completion
@@ -238,6 +238,7 @@ int main()
                     Rtencrypt(word, k); /* This line indicates that the single read character input into the string 'word', as well as they key inputted by the user 
                                             will be used in the Rtencrypt function*/
     
+                    printf("%c", word[i]); //prints the encrypted letter to the screen 
     /* The following print statement prints the encrypted letter found within the function and returned to this
     while loop to the file 'output.txt'. */
                     fprintf(output, "%c", word[i]); 
@@ -279,7 +280,7 @@ int main()
     prompt the user to observe the finished decryption within the output file, close all the files which have been used and end the program. Without 
     this statement the program would print the last letter in 'input.txt' twice.*/
                     if (feof(input)) {
-                        printf("\nObserve decryption within the file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
+                        printf("\nAlso observe decryption within the file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
                         fclose(input); //closes the input file 
                         fclose(output); //closes the output file
                         return 0; //ends the program, as the file has been read and decrypted to completion
@@ -288,6 +289,7 @@ int main()
                     Rtkdecrypt(word, k); /* This line indicates that the single read character input into the string 'word'
                                             will be used in the Rtdecrypt function*/
     
+                    printf("%c", word[i]); // prints the decrypted letter to the screen
     /* The following print statement prints the decrypted letter found within the function and returned to this
     case to the file 'output.txt'*/
                     fprintf(output, "%c" , word[i]); 
@@ -391,7 +393,7 @@ int main()
     prompt the user to observe the finished encryption within the 'output.txt' file, close all the files which have been used and end the program. Without 
     this statement the program would print the last letter in 'input.txt' twice.*/        
                     if (feof(input)){
-                        printf("\nObserve decrypted text from the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
+                        printf("\nAlso observe decrypted text within the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
                         fclose(input); //closes the input file 
                         fclose(output); //closes the output file
                         return 0; //ends the program as the file has been read and encrypted to completion.  
@@ -399,6 +401,7 @@ int main()
                     
                     Stencrypt(word, ciphertext); //passes the single scanned letter to the function stencrypt 
                     
+                    printf("%c", word[i]); // prints the encrypted letter to the screen
                     fprintf(output, "%c" , word[i]); // prints the encrypted letter to the file 'output.txt'
                 }
                 
@@ -437,7 +440,7 @@ int main()
     prompt the user to observe the finished decryption within the 'output.txt' file, close all the files which have been used and end the program. Without 
     this statement the program would print the last letter in 'input.txt' twice.*/  
                     if (feof(input)){
-                        printf("\nObserve decrypted text from the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
+                        printf("\nAlso observe decrypted text within the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
                         fclose(input); //closes the input file 
                         fclose(output); //closes the output file
                         return 0; // ends the program as the file has been read and decrypted to completion. 
@@ -446,6 +449,7 @@ int main()
                     
                     Stdecrypt(word, ciphertext); //passes the character within 'word' and the inserted ciphertext key to the function stdecrypt. 
                     
+                    printf("%c", word[i]); //prints the decrypted letter to the screen 
                     fprintf(output, "%c" , word[i]); //prints the decrypted letter found and returned from within the function stdecrypt. 
                 }
             

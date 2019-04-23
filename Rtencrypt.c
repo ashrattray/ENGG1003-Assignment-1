@@ -3,8 +3,14 @@
 
 /*The following function takes a single letter input into the string 'word' from a file opened within main and encrypts it according to
 the key specified by the user (which was stored in k). The function continues to read the file letter by letter and returning the 
-encryption until it reaches the end of the file, which is specified in the while loop found within main () case 4. */
-
+encryption until it reaches the end of the file, which is specified in the while loop found within main () case 4. This function takes the inputs 
+of the char string 'word', which contains at each call only one character found within the text file 'input.txt', and the key for the rotational 
+encryption as an integer which is inputted within the main.c and also passed to this function. There is no while loop in this statement, as only one 
+character is present to be ecnrypted and is located at the first point 0 in the string 'word', indicated by the initialisation of the counter i as 0 
+which remains as zero. Rather than a loop, each if statement is separately tested to see which condition the single character applies to, and only that 
+process of encryption is used. Therefore, this function only returns the string 'word' containing only the single encrypted letter to be printed within 
+main.c. Data type restrictions are that the character must be a char, and the key must be a number. */
+ 
 char Rtencrypt(char *word, int k) {
     
     int i = 0; 

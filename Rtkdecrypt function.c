@@ -1,5 +1,15 @@
 #include <stdio.h>
 
+/* The following function does the same as the rkdecrypt function, decrypting rotational ciphertext when given
+the key, however it reads the input from a file one single character at a time and passes it to this function 
+to be decrypted one at a time until the main.c reaches the end of the file. This function takes the string 'word' 
+containing only a single character from the file 'input.txt', as well as the integer stored within k to indicate the key 
+which was inputted by the user within main.c. This function contains no while loops as only a single character located at 
+the initial position 0, indicated by the initialisation of the counter i to 0 which remains unchanged or incremented, is read 
+and decrypted according to which if statement it applies to. All other if statements are ignored, and the function 
+returns the string 'word', containing only a single decrypted character, back to the main.c in order to be printed and 
+the next character to be read and passed to this function, until the end of the file is reaches. Data restrictions are that 
+they inserted key within the main.c must be an integer. */
 
 char Rtkdecrypt(char *word, int k) {
     
@@ -25,5 +35,5 @@ char Rtkdecrypt(char *word, int k) {
                 word[i] = ((word[i] - k) +26);
             }
      
-    return *word; 
+    return *word; // passes the encrypted character back to main.c in order to be printed. 
 }
