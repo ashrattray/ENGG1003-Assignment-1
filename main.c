@@ -28,7 +28,7 @@ function they deem easier to use.
 The single file 'input.txt' should be used whenever the user wishes to input a passages into 4th, 5th, 8th and 9th functions in the program, and 
 the encrypted or decrypted text for these functions should be read from the 'output.txt' file as is promted by the program. 
 This code has been optimised in order to allow the input of capital and lower case letters, and allows the input of common
-punctuation such as apostrophes, as well as numbers. If the program encounters these characters, they will be ignored 
+punctuation such as apostrophes and spaces, as well as numbers. If the program encounters these characters, they will be ignored 
 and printed back the same as the original.  
 Program must be run from the terminal section */
 
@@ -94,8 +94,8 @@ int main()
     which will define how this word will be encrypted */
             case 1:
                 printf("You chose to encrypt using a rotational cipher! \n");
-                printf("Insert words to be encrypted:"); // prompts the user to input word
-                scanf(" %[^\n]s", word); /*scans the word wished to be encrypted and puts it in the string */ 
+                printf("Insert words to be encrypted:"); // prompts the user to input text to encrypt
+                scanf(" %[^\n]s", word); /*scans the text wished to be encrypted and puts it in the string 'word' */ 
 
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
                 while(word[i] != 0 ) {
@@ -106,16 +106,18 @@ int main()
                                     of this while loops applies to all while loops within this code commented to also be converting
                                     lower case letters to uppercase letters (as the loops are the same with the same outcome*/
                         word[i] = (word[i] - 32);
-                        i++;
+                        i++; //increments the value of i in order to check if the next consecutive letter is a capital or not
                     }
-                    else {
+    /* This else statement states that if the letter stored in word[i] is not a lower case (so is either a capital, punctuation or number 
+    etc) then it will remain the same and the program will move to test next consecutive letter in the string. */
+                    else { 
                         word[i] = word[i];
-                        i++;
+                        i++; //increments the value of i to test the nect consecutive value. 
                     }
                 }
                
-               Rencrypt(word); /* the line of code indicating the string 'word' will be used 
-                in the encrypt function. */
+               Rencrypt(word); /* the line of code indicating the string 'word' (which has now been converted to upper case 
+                                letters, will be used in the rotational encrypt function. */
                
                printf("%s\n", word); /* Prints encrypted word returned from the Rencrypt function*/
                
@@ -130,11 +132,12 @@ int main()
             case 2:
                 printf("You chose to decrypt ciphertext encrypted using a rotational cipher (given the key)! \n");
                 printf("Insert ciphertext to be decrypted: "); /*this line prompts the user to input the 
-                encrypted word they wish to decrypt*/
-                scanf(" %[^\n]s", word); /* this scanf places the input word within the string that is to be 
-                used in the function, therefore meaning it is the word that will be decrypted*/
+                encrypted text they wish to decrypt*/
+                scanf(" %[^\n]s", word); /* this scanf places the input ciphertext within the string that is to be 
+                used in the function, therefore meaning it is the text that will be decrypted*/
             
-    /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
+    /* this while loop works to convert any lower case letters input into capitals before the word enters the function. For explanation
+    on how this works, read the comments within case 1. */
                 while(word[i] != 0) {
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
@@ -146,10 +149,10 @@ int main()
                     }
                 }
                 
-                Rkdecrypt(word); /* this line of code indicates the string word inputted will be used in the 
-                decryption function, as per the users choice*/
+                Rkdecrypt(word); /* this line of code indicates the string 'word' inputted by the user will be used in the 
+                rotational decryption function, as per the users choice*/
                
-               printf("%s\n", word); /* Prints the decrypted word returned from the rkdecrypt function*/ 
+               printf("%s\n", word); /* Prints the decrypted text returned from the rkdecrypt function*/ 
          
             break; 
             
@@ -160,14 +163,15 @@ int main()
             case 3: 
                 printf("You chose to decrypt cipertext using a rotational cipher (without the key)! \n");
                 printf("Insert ciphertext to be decrypted: "); /*this line prompts the user to input the cipher word*/
-                scanf(" %[^\n]s", word); /* this scanf puts the word inserted by the user into the string 'word' to be used 
-                in the decryption function */
+                scanf(" %[^\n]s", word); /* this scanf puts the text inserted by the user into the string 'word' to be used 
+                                            in the decryption function */
                 printf("Insert number of characters (including punctuation and/or spaces) in encryption: ");/* this allows the user to tell how many letters are to be 
                         encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
                         characters within the string*/
                 scanf("%d", &n); 
             
-    /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
+    /* this while loop works to convert any lower case letters input into capitals before the word enters the function. See explanation 
+    within case 1. */
                 while(i < n ) {
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
@@ -179,13 +183,13 @@ int main()
                     }
                 } 
                 
-                Rdecrypt(word, n); /* This line of code indicates the string word inputted will be used in the decryption
-                function*/ 
+                Rdecrypt(word, n); /* This line of code indicates the string 'word' inputted will be used in the decryption
+                function for rotational encrypted ciphertext when not given the key*/ 
                
                
     /* As the Rdecrypt function needs to be repeated until the user tells the program that the correct word is found, 
-    the print statement . s are found within the function, as well as the key and the other values needed for the function to work. 
-    This allows the function to be repeated until the user tells it to stop*/
+    the print statements are found within the function, as well as the key and the other values needed for the function to work. 
+    This allows the function to be repeated until the user tells it to stop, when the correct key is found. */
                 
             break;
     
@@ -194,47 +198,51 @@ int main()
     into the file before running the program*/
    
             case 4:
-                printf("You chose to encrypt a phrase from 'input.txt' with a rotational cipher! \n"); 
-                printf("\n!!Insert text you wish to encrypt into the fie 'input.txt' before continuing!! \n");
+                printf("You chose to encrypt a phrase from 'input.txt' with a rotational cipher! \n");  
+                printf("\n!!Insert text you wish to encrypt into the fie 'input.txt' before continuing!! \n");/* this statement prompts the user
+                                                                                                                to input their wanted phrases into the 
+                                                                                                                file which will be read.*/
                 
                 input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
                 output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
                 
                 printf("\nInsert key for rotation:"); // this printf and scanf is used to read the key from the user for rotation encryption. 
-                scanf("%d", &k);
+                scanf("%d", &k); // scans the input key from the user and places it within 'k' to be later passed to the function. 
             
     /* The following while loop works to read every character within the file one-by-one, until it reaches the end of the characters within the file,
-    in which the while loop will then stop*/
-                
+    which is indicated by feof in which the while loop will then stop*/
                 while(!feof(input)) {
                     char c; /* This is a variable that will be used to store single characters read by the following fscanf before they are inserted 
-                            into the string that will be used in the function to encrypt the phrase*/
+                            into the string 'word' that will be used in the function to encrypt the phrase*/
                     fscanf(input, "%c", &c); /* This fscanf reads a single character from the file 'input.txt' and puts it in the variable 
                                                 c*/
                     
-                    
-                    word [i] = c; /* This assigns the single character from the file read by the program to the first place
+                    word [i] = c; /* This assigns the single character from the file read by the program to the first memory storage place
                                     within the string 'word' so that it can be inputted later into the Rtencrypt function*/
                     
-    /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
+    /* this if statement works to convert any lower case letters input into capitals before the letter continues through the while loops and 
+    enters the function which will ecnrypt it only as a capital letter */
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
                         } 
+    /* This second if statement within the loop again tests if the scanned character of the file is the end (feof). If so, this if statement will 
+    prompt the user to observe the finished encryption within the output file, close all the files which have been used and end the program. Without 
+    this statement the program would print the last letter in 'input.txt' twice.*/
+                    if (feof(input)) {
+                        printf("\nObserve Encryption within the file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
+                        fclose(input); //closes the input file 
+                        fclose(output); //closes the output file
+                        return 0; //ends the program, as the file has been read and encrypted to completion
+                    }
                     
-                    Rtencrypt(word, k); /* This line indicates that the single read character input into the string 'word'
+                    Rtencrypt(word, k); /* This line indicates that the single read character input into the string 'word', as well as they key inputted by the user 
                                             will be used in the Rtencrypt function*/
     
     /* The following print statement prints the encrypted letter found within the function and returned to this
-    case file 'output.txt*/
-   
+    while loop to the file 'output.txt'. */
                     fprintf(output, "%c", word[i]); 
                 }
-                
-                fclose(input); //closes the input file 
-                fclose(output); //closes the output file
-                
-                printf("\nObserve encryption within file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
-                
+
             break;
             
     /* The switch case 5 defines that if the user inputs 5, that single letters will be read from the file 'input.txt' and used in 
@@ -259,7 +267,6 @@ int main()
                     fscanf(input, "%c", &c); /* This fscanf reads a single character from the file 'input.txt' and puts it in the variable 
                                                 c*/
                     
-                    
                     word [i] = c; /* This assigns the single character from the file read by the program to the first place
                                     within the string 'word' so that it can be inputted later into the Rtdecrypt function*/
                     
@@ -268,6 +275,16 @@ int main()
                         word[i] = (word[i] - 32);
                         } 
                     
+    /* This second if statement within the loop again tests if the scanned character of the file is the end (feof). If so, this if statement will 
+    prompt the user to observe the finished decryption within the output file, close all the files which have been used and end the program. Without 
+    this statement the program would print the last letter in 'input.txt' twice.*/
+                    if (feof(input)) {
+                        printf("\nObserve decryption within the file 'output.txt'\n"); //tells the user to see their encryption within the file 'ouput.txt'
+                        fclose(input); //closes the input file 
+                        fclose(output); //closes the output file
+                        return 0; //ends the program, as the file has been read and decrypted to completion
+                    }
+
                     Rtkdecrypt(word, k); /* This line indicates that the single read character input into the string 'word'
                                             will be used in the Rtdecrypt function*/
     
@@ -275,11 +292,7 @@ int main()
     case to the file 'output.txt'*/
                     fprintf(output, "%c" , word[i]); 
                 }
-                
-                    fclose(input); //closes the input file 
-                    fclose(output); //closes the output file
-                    
-                    printf("\nObserve decryption within the file 'output.txt'.\n ");
+        
             break;
             
     /* The switch case 6 statement defines that if the user inputs 6, then the program will initiate this case statement which 
@@ -289,10 +302,11 @@ int main()
             case 6:
             
                 printf("You chose to encrypt input text using a substitution cipher! \n");
-                printf("Insert words to be encrypted:"); /* Prompts user to input words */
-                scanf(" %[^\n]s", word); /* Puts the inputted words into the string 'word' to be encrypted*/
+                printf("Insert words to be encrypted:"); /* Prompts user to input text */
+                scanf(" %[^\n]s", word); /* Puts the inputted text into the string 'word' to be encrypted*/
             
-    /* this while loop works to convert any lower case letters input into capitals before the word enters the function*/
+    /* this while loop works to convert any lower case letters input into capitals before the word enters the function. see explanation 
+    within case 1*/
                 while(word[i] != 0) {
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
@@ -305,9 +319,9 @@ int main()
                     }
                 }
 
-                Sencrypt(word); /* Puts the inputted word into the substitution encryption function*/
+                Sencrypt(word); /* Puts the inputted text into the substitution encryption function*/
                 
-                printf("%s\n", word); /* Prints the word in which the substitution encryption function encrypts and returns*/
+                printf("%s\n", word); /* Prints the encrypted ciphertext in which the substitution encryption function encrypts and returns*/
                
             
             break;
@@ -319,7 +333,7 @@ int main()
             
                 printf("You chose to decrypt ciphertext encrypted with a substitution cipher! \n");
                 printf("Insert ciphertext to be decrypted: "); //promts user to insert cipherwords
-                scanf(" %[^\n]s", word); 
+                scanf(" %[^\n]s", word); //stores the ciphertext within the string 'word' to later be passed to a function
                 i = 0; //sets counter for the string 'word' to 0
                 
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function (as explained in the first switch case statement)*/
@@ -335,19 +349,27 @@ int main()
                         }
                     }
                 
-                Sdecrypt(word); // passes the inputted word into the sdecrypt function. 
+                Sdecrypt(word); // passes the inputted ciphertext into the sdecrypt function. 
                 
-                printf("%s\n", word); // prints the decrypted word to the screen. 
+                printf("%s\n", word); // prints the decrypted text to the screen. 
                 
             break;
             
+    /* The switch case 8 statement defines that if the user inputs 8 into the user-friendly manuel, then the program will initiate the 
+    following steps in order to read inputted text from the file 'input.txt' and encrypt the contents using a substitional cipher when 
+    the scanned text is passed to the stencrypt function. It will also print the output to the file 'output.txt'. */
             case 8:
             
                 printf("You chose to encrypt a phrase from the file 'input.txt' using a substitution cipher!\n");
-                printf("\n!!Insert phrase you wish to encrypt into the file 'input.txt'!!\n");
-                printf("Insert substitution cipher key below their designated letters\n");
-                printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ\n");
-                scanf("%s", ciphertext);
+                printf("\n!!Insert phrase you wish to encrypt into the file 'input.txt'!!\n"); /* Prompts the user to input the 
+                                                                                                text they wish to encrypt into the file 
+                                                                                                'input.txt'*/
+                printf("Insert substitution cipher key below their designated letters\n"); /* Prompts the user to input the key for the substitutional 
+                                                                                            encryption key into the program */
+                printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ\n"); /* Gives the user a visual reference to see what each letter of the alphabet becomes once they 
+                                                        have fully inserted the key. Also assists the user visually to ensure they insert all 26 letters of the 
+                                                        new alphabet substitution*/
+                scanf("%s", ciphertext); // scans the ciphertext inputted by the user and stores it within the string 'ciphertext'
                 
                 input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
                 output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
@@ -364,26 +386,37 @@ int main()
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
                     } 
+
+    /* This second if statement within the loop again tests if the scanned character of the file is the end (feof). If so, this if statement will 
+    prompt the user to observe the finished encryption within the 'output.txt' file, close all the files which have been used and end the program. Without 
+    this statement the program would print the last letter in 'input.txt' twice.*/        
+                    if (feof(input)){
+                        printf("\nObserve decrypted text from the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
+                        fclose(input); //closes the input file 
+                        fclose(output); //closes the output file
+                        return 0; //ends the program as the file has been read and encrypted to completion.  
+                    }
                     
-                    Stencrypt(word, ciphertext); 
+                    Stencrypt(word, ciphertext); //passes the single scanned letter to the function stencrypt 
                     
-                    fprintf(output, "%c" , word[i]);
+                    fprintf(output, "%c" , word[i]); // prints the encrypted letter to the file 'output.txt'
                 }
-                
-                fclose(input); //closes the input file 
-                fclose(output); //closes the output file
-                
-                printf("\nObserve decrypted text from the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
                 
             break; 
             
+    /* The switch case 9 statement defines that if the user inputs 9 into the user-friendly manual, then the program 
+    will initiate the following steps which will work to read text letter by letter from the file 'input.txt' and pass it to the function
+    stdecrypt in order to decrypt its substitutional encryption. It will print the decrypted text to the file 'output.txt'. */
             case 9:
            
                 printf("You chose to decrypt a phrase from the file 'input.txt' encrypted with a substitution cipher!\n");
-                printf("\n!!Insert phrase you wish to decrypt into the file 'input.txt'!!\n");
-                printf("Insert ciphertext used to encrypt below their designated letters\n");
-                printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ\n");
-                scanf("%s", ciphertext); 
+                printf("\n!!Insert phrase you wish to decrypt into the file 'input.txt'!!\n"); /* Promts the user to insert the ciphertext to the 
+                                                                                                file 'input.text'*/
+                printf("Insert ciphertext used to encrypt below their designated letters\n"); /* Prompts the user to insert the substitutional alphabet
+                                                                                                key used to encrypt the inserted ciphertext. */
+                printf("ABCDEFGHIJKLMNOPQRSTUVWXYZ\n"); /* Gives visual aid to the user when inserting the key to see what letters of the alphabet become and 
+                                                        ensure that all 26 letters are inputted. */
+                scanf("%s", ciphertext); //stores the inputted ciphertext into the string 'ciphertext' to be passed to the stdecrypt function
             
                 input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
                 output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
@@ -400,16 +433,21 @@ int main()
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
                     } 
+    /* This second if statement within the loop again tests if the scanned character of the file is the end (feof). If so, this if statement will 
+    prompt the user to observe the finished decryption within the 'output.txt' file, close all the files which have been used and end the program. Without 
+    this statement the program would print the last letter in 'input.txt' twice.*/  
+                    if (feof(input)){
+                        printf("\nObserve decrypted text from the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
+                        fclose(input); //closes the input file 
+                        fclose(output); //closes the output file
+                        return 0; // ends the program as the file has been read and decrypted to completion. 
+
+                    }
                     
-                    Stdecrypt(word, ciphertext); 
+                    Stdecrypt(word, ciphertext); //passes the character within 'word' and the inserted ciphertext key to the function stdecrypt. 
                     
-                    fprintf(output, "%c" , word[i]); 
+                    fprintf(output, "%c" , word[i]); //prints the decrypted letter found and returned from within the function stdecrypt. 
                 }
-                
-                fclose(input); //closes the input file 
-                fclose(output); //closes the output file
-                
-                printf("\nObserve decrypted text from the file 'output.txt'\n"); //promts user to observe output from the file 'output.txt'
             
             break; 
     } // end of switch statement bracket so STOP DELETING IT
