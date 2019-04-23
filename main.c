@@ -34,7 +34,7 @@ Program must be run from the terminal section */
 
 char Rencrypt(char *word); /* this is the prototype for the function that will handle encrypting the word using a rotational cipher*/ 
 char Rkdecrypt(char *word); /* this is the prototype for the function that will handle decrypting a rotational cipher when given the rotation key*/
-char Rdecrypt(char *word, int n); /* this is the prototype for the fucntion that will handle decrypting a rotation cipher word without the rotation key*/
+char Rdecrypt(char *word); /* this is the prototype for the fucntion that will handle decrypting a rotation cipher word without the rotation key*/
 char Rtencrypt(char *word, int k); /* this is the protoype for the encyption of the file input.txt which must be used to encrypt passages rather than just words. it uses
                             rotation key*/
 char Rtkdecrypt(char *word, int k); /* This is the prototype for the function that will decrypt whatever is input into 'input.ext' encrypted with a rotational cipher 
@@ -55,8 +55,6 @@ int main()
     i.e., 1 will be rotational cipher encryption, 2 will be rotational cipher decryption, 
     3 will be sucstitution cipher encryption and 4 will be rotational cipher decryption*/
     unsigned char i = 0;
-    int n=0; /* this is an integer for the number of letters in the word - 
-                used to kill the loop when the word is done being encrypted - used only for case 3 */
     int k = 0; /* this is the 'key', being the number of 'shifts' the letter will move - this will rotate k letters 
                 used only for cases 4 and 5, as they require the key as an argument for their function*/
     
@@ -164,15 +162,11 @@ int main()
                 printf("You chose to decrypt cipertext using a rotational cipher (without the key)! \n");
                 printf("Insert ciphertext to be decrypted: "); /*this line prompts the user to input the cipher word*/
                 scanf(" %[^\n]s", word); /* this scanf puts the text inserted by the user into the string 'word' to be used 
-                                            in the decryption function */
-                printf("Insert number of characters (including punctuation and/or spaces) in encryption: ");/* this allows the user to tell how many letters are to be 
-                        encrypted before the function is to be killed, which stops the program from printing and encrypting the remaining irrelevant 
-                        characters within the string*/
-                scanf("%d", &n); 
+                                            in the decryption function */ 
             
     /* this while loop works to convert any lower case letters input into capitals before the word enters the function. See explanation 
     within case 1. */
-                while(i < n ) {
+                while(word[i] != 0 ) {
                     if (word[i] > 96) { 
                         word[i] = (word[i] - 32);
                         i++;
@@ -183,7 +177,7 @@ int main()
                     }
                 } 
                 
-                Rdecrypt(word, n); /* This line of code indicates the string 'word' inputted will be used in the decryption
+                Rdecrypt(word); /* This line of code indicates the string 'word' inputted will be used in the decryption
                 function for rotational encrypted ciphertext when not given the key*/ 
                
                
