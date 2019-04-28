@@ -5,10 +5,10 @@ char Sunknownkey(char *word, char *alphabet, char *unknownkey) {
     int length; // variable to hold the length of each word. 
     int i = 0; //counter for the location of the program within the string 'word'
     int k; // position marker of corresponding letter within string 'unknown key' when compared to the order of the common alphabet 
-
+    printf("%s\n", word); 
     length = strlen(word); //calcluates the length of the word passed to this function.
     printf("%s\n", unknownkey); 
-   // while (word[i] != 0){
+    printf("%d\n", length);
         
         if (length == 1) {
             unknownkey[0] = word[0]; // the place of A in the alphabet is now the single letter read. 
