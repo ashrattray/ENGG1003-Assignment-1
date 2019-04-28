@@ -46,10 +46,12 @@ char Stencrypt(char *word, char *ciphertext);/* This is the prototype for the fu
                                                 cipher inputted by the user*/
 char Stdecrypt(char *word, char *ciphertext); /* This is the prototype for the function that will read text from the file 'input.txt' and decrypt it using the substitution 
                                                 cipher key inputted by the user. */
+char Sunknownkey(char *word, char *alphabet, char *unknownkey); /* Function to determine the key of a substitution cipher after analysing the text */
+char Sdecryptk(char *word, char *unknownkey); 
 
 int main() 
 {
-    char word [1000]; /*initialises string with a number of letters most words won't exceed */  
+    char word [10000]; /*initialises string with a number of letters most words won't exceed */  
     char ciphertext[10000]; //initialises the string to be used for ciphertext
     int function = 0; /* f will acts as the integer which chooses out of the multiple functions of this code -
     i.e., 1 will be rotational cipher encryption, 2 will be rotational cipher decryption, 
@@ -57,6 +59,9 @@ int main()
     unsigned char i = 0;
     int k = 0; /* this is the 'key', being the number of 'shifts' the letter will move - this will rotate k letters 
                 used only for cases 4 and 5, as they require the key as an argument for their function*/
+    char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; /* Alphabet string to determine key of substitution cipher*/
+    char unknownkey[] = "abcdefghijklmnopqrstuvwxyz" ; /* String to hold the key that will be determined in the 'Sunknownkey function' to be used to 
+                                decrypt ciphertext with unknown substitution key. */
     
     FILE *input; /* This is introducing the file which can be read from in the functions lower in the list. */
     FILE *output; /* this is introducing the file which will have encryptions/encryptions printed to it from functions called on 
@@ -71,14 +76,15 @@ int main()
  
         printf("Insert number of function you wish to use: \n");
         printf("(1) to encrypt using a rotational cipher \n");
-        printf("(2) to decrypt ciphertext using a rotational cipher, given the key \n");
-        printf("(3) to decrypt ciphertext using a rotational cipher, not given the key \n");
+        printf("(2) to decrypt ciphertext using a rotational cipher (given the key) \n");
+        printf("(3) to decrypt ciphertext using a rotational cipher (not given the key() \n");
         printf("(4) to encrypt a phrase from the file 'input.txt' with a rotational cipher\n");
         printf("(5) to decrypt a phrase from the file 'input.txt' encrypted using a rotational cipher (given the key)\n");
         printf("(6) to encrypt using a substitution cipher \n");
         printf("(7) to decrypt ciphertext encrypted using a substitution cipher\n"); 
         printf("(8) to encrypt a phrase from the file 'input.txt' using a substitution cipher\n");
-        printf("(9) to decrypt a phrase from the file 'input.txt' encrypted using a substitution cipher\n"); 
+        printf("(9) to decrypt a phrase from the file 'input.txt' encrypted using a substitution cipher (given the key) \n");
+        printf("(10) to decrypt a phrase from the file 'input.txt' encrypted with a substitution cipher (without the key)\n"); 
        
         scanf("%d", &function); //reads the input of a number from 1-9 from the user to initiate a particular switch statement designated to the desired function. 
         
@@ -447,7 +453,39 @@ int main()
                     fprintf(output, "%c" , word[i]); //prints the decrypted letter found and returned from within the function stdecrypt. 
                 }
             
-            break; 
+            break;
+            
+            case 10:
+                printf("You chose to decrypt a substitution cipher from the file 'input.txt' without a key!\n");
+                printf("\n!!Insert phrase you wish to decrypt into the file 'input.txt'!!\n"); /* Promts the user to insert the ciphertext to the 
+                                                                                                file 'input.text' */
+                input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
+                output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
+            
+                while (!feof(input)) {
+                    
+                fscanf(input, "%s", word); // reads a word from the file 
+                 
+                    
+                    Sunknownkey(word, alphabet, unknownkey); // passes the word to the function to decrypt a key 
+                    printf("break\n"); 
+                }
+                
+                fclose(input); //closes the input file 
+                fclose(output); //closes the output file
+                
+                input = fopen("input.txt", "r");  /*This opens the file that the program will read and then ecrypt*/
+                output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
+               
+                while (!feof(input)){
+                    fscanf(input, "%s", word); // reads a word from the file
+                    Sdecryptk(word, unknownkey); 
+                    printf("%s\n", word); 
+                } 
+
+
+
+                
     } // end of switch statement bracket so STOP DELETING IT
 
     return 0; 
