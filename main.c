@@ -467,8 +467,7 @@ int main()
                 fscanf(input, "%s", word); // reads a word from the file 
                  
                     
-                    Sunknownkey(word, alphabet, unknownkey); // passes the word to the function to decrypt a key 
-                    printf("break\n"); 
+                    Sunknownkey(word, alphabet, unknownkey); // passes the word to the function to decrypt a key  
                 }
                 
                 fclose(input); //closes the input file 
