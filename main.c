@@ -46,8 +46,7 @@ char Stencrypt(char *word, char *ciphertext);/* This is the prototype for the fu
                                                 cipher inputted by the user*/
 char Stdecrypt(char *word, char *ciphertext); /* This is the prototype for the function that will read text from the file 'input.txt' and decrypt it using the substitution 
                                                 cipher key inputted by the user. */
-char Sunknownkey(char *word, char *alphabet, char *unknownkey); /* Function to determine the key of a substitution cipher after analysing the text */
-char Sdecryptk(char *word, char *unknownkey); 
+
 
 int main() 
 {
@@ -84,7 +83,6 @@ int main()
         printf("(7) to decrypt ciphertext encrypted using a substitution cipher\n"); 
         printf("(8) to encrypt a phrase from the file 'input.txt' using a substitution cipher\n");
         printf("(9) to decrypt a phrase from the file 'input.txt' encrypted using a substitution cipher (given the key) \n");
-        printf("(10) to decrypt a phrase from the file 'input.txt' encrypted with a substitution cipher (without the key)\n"); 
        
         scanf("%d", &function); //reads the input of a number from 1-9 from the user to initiate a particular switch statement designated to the desired function. 
         
@@ -454,36 +452,6 @@ int main()
                 }
             
             break;
-            
-            case 10:
-                printf("You chose to decrypt a substitution cipher from the file 'input.txt' without a key!\n");
-                printf("\n!!Insert phrase you wish to decrypt into the file 'input.txt'!!\n"); /* Promts the user to insert the ciphertext to the 
-                                                                                                file 'input.text' */
-                input = fopen("input.txt", "r"); /* This opens the file that the program will read and then ecrypt*/
-                output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
-            
-                while (!feof(input)) {
-                    
-                fscanf(input, "%s", word); // reads a word from the file 
-                 
-                    
-                    Sunknownkey(word, alphabet, unknownkey); // passes the word to the function to decrypt a key  
-                }
-                
-                fclose(input); //closes the input file 
-                fclose(output); //closes the output file
-                
-                input = fopen("input.txt", "r");  /*This opens the file that the program will read and then ecrypt*/
-                output = fopen("output.txt", "w"); /* This opens the file that the program will write the encryption to*/
-               
-                while (!feof(input)){
-                    fscanf(input, "%s", word); // reads a word from the file
-                    Sdecryptk(word, unknownkey); 
-                    printf("%s\n", word); 
-                } 
-
-
-
                 
     } // end of switch statement bracket so STOP DELETING IT
 
